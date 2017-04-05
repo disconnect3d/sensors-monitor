@@ -1,11 +1,4 @@
 # sensors-monitor
 Team project made for "Team project" course at AGH University of Science and Technology.
 
-
-## Backend
-
-To work locally on the backend side, make a virtualenv and then install requirements using pip:
-```bash
-pip install -r requirements.txt
-```
-
+For more information check out our [wiki](https://github.com/disconnect3d/sensors-monitor/wiki).
