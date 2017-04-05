@@ -3,4 +3,7 @@ $(document).ready(function(){
         $('#monitorSelector li').removeClass('active');
         $(this).addClass('active');
     });
+
+    $('#resources').DataTable();
+
 });

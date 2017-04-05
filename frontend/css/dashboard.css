@@ -2,11 +2,13 @@ body {
   padding-top: 50px;
 }
 
+#content {margin-top:20px;}
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
 
+#chartContainer {height: 500px;}
 /*
  * Top navigation
  * Hide default border to remove 1px line.
