@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Main</title>
+    <meta charset="UTF-8">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,600' rel='stylesheet' type='text/css'/>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+
+    <script src="js/libs/jquery/jquery-3.2.0.min.js"></script>
+    <script src="js/libs/angular/angular.min.js"></script>
+    <script src="js/libs/pace/pace.min.js"></script>
+    <script src="js/libs/bootstrap/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/dashboard.css" type="text/css"/>
+</head>
+
+<body>
+    <section id="topNav"></section>
+    <section id="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-md-2 sidebar">
+                    <ul id="monitorSelector" class="nav nav-sidebar">
+                        <li class="active"><a href="#">Monitor 1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Monitor 2</a></li>
+                        <li><a href="#">Monitor 3</a></li>
+                        <li><a href="#">Monitor 4<i class="fa fa-remove pull-right" title="Complex"></i><i class="fa fa-th pull-right" title="Remove"></i></a></li>
+                        <li><a href="#">Monitor 5<i class="fa fa-remove pull-right" title="Complex"></i><i class="fa fa-th pull-right" title="Remove"></i></a></li>
+                        <li><a href="#">Monitor 6<i class="fa fa-remove pull-right" title="Complex"></i><i class="fa fa-th pull-right" title="Remove"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-10 main">
+                    <h1 class="page-header">Resources:</h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Resource name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Host</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>CPU Utilization</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Example resource 1</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Example resource 2</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    $('#topNav').load('layout/topNav.html');
+</script>
+<script src="js/custom.js"></script>
+</html>
