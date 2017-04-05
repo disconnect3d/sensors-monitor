@@ -8,7 +8,7 @@ body {
   border-bottom: 1px solid #eee;
 }
 
-#chartContainer {height: 500px;}
+#chartContainer {height: 500px; margin: 20px 0;}
 /*
  * Top navigation
  * Hide default border to remove 1px line.

@@ -4,6 +4,8 @@ $(document).ready(function(){
         $(this).addClass('active');
     });
 
-    $('#resources').DataTable();
+    if ( $('#resources').length ){
+        $('#resources').DataTable();
+    }
 
 });
