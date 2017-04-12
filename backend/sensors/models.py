@@ -6,23 +6,20 @@ class SensorKind(models.Model):
     kind_name = models.CharField(max_length=64)
 
 
+class Host(models.Model):
+    name = models.CharField(primary_key=True, max_length=64)
+
+
 class Sensor(models.Model):
-    hostname = models.CharField(max_length=64)
+    host = models.ForeignKey(Host, on_delete=models.CASCADE)
     kind = models.ForeignKey(SensorKind)
     registered_at = models.DateTimeField()
-
-
-class Measurement(models.Model):
-    sensor = models.ForeignKey(Sensor)
-    value = models.FloatField()
-    measurement_time = models.DateTimeField()
-    upload_time = models.DateTimeField()
 
 
 class ComplexMeasurement(models.Model):
     """
     Represents complex measurement
-    
+
     sensor - data source and data type
     name - name of measurement
     begin, end - time span of measurement
@@ -37,3 +34,17 @@ class ComplexMeasurement(models.Model):
     time_window = models.BigIntegerField()
     frequency = models.BigIntegerField()
     owner = models.ForeignKey(User)
+
+
+class MeasurementValue(models.Model):
+    """ Represents single measured value. API will return array of these. If complex_id is None, then it is measured 
+    value. Otherwise, it is calculated and part of complex measurement """
+    sensor = models.ForeignKey(Sensor)
+    value = models.FloatField()
+    measurement_time = models.DateTimeField()
+    upload_time = models.DateTimeField()
+    complex_id = models.ForeignKey(ComplexMeasurement, on_delete=models.CASCADE, null=True)
+
+    @property
+    def complex(self):
+        return self.complex_id is not None
