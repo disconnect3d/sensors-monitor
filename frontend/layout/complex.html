@@ -1,0 +1,43 @@
+<div id="compMain" >
+
+    <div id="compTitle">
+        Add new complex measurement
+    </div>
+
+    <div class="compData">
+        <div class="compDataTitle">Measurement</div>
+        <div class="compDataValue">
+            <span id="compSelected"><em>No measurement selected</em></span>
+            <button id="compSelect" class="button" data-hint="Click to select a measurement for which the complex measurement will be created.">Select measurement</button>
+        </div>
+    </div>
+
+    <div class="compData" data-hint="Enter the name of the new measurement.">
+        <div class="compDataTitle">Name</div>
+        <div class="compDataValue">
+            <input id="compName" type="text" data-required="true"/>
+        </div>
+    </div>
+
+    <div class="compData" data-hint="Select the time window in which data is aggregated.">
+        <div class="compDataTitle">Aggregation time span</div>
+        <div class="compDataValue">
+            <input id="compWindow" placeholder="Select" type="text" readonly="readonly" />
+        </div>
+    </div>
+
+    <div class="compData" data-hint="Select the refresh frequency.">
+        <div class="compDataTitle">Interval</div>
+        <div class="compDataValue">
+            <input id="compInter" placeholder="Select" type="text" readonly="readonly" />
+        </div>
+    </div>
+
+    <div class="compData">
+        <div class="compDataTitle"> </div>
+        <div class="compDataValue">
+            <button id="compAdd" class="button" data-hint="Click to create a new complex measurement from selected data.">Create complex measurement</button>
+        </div>
+    </div>
+
+</div>

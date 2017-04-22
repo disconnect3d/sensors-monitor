@@ -1,0 +1,291 @@
+
+#secGraphs
+{
+    padding: 40px;
+    margin-bottom: 150px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/*********************************
+    Generic
+**********************************/
+
+    #grapMain
+    {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+    }
+
+    #grapContent
+    {
+        flex: 1;
+        display: flex;
+    }
+
+    #grapFooter
+    {
+        width: 100%;
+        height: 210px;
+    }
+
+
+/*********************************
+    Graph panel
+**********************************/
+
+    #grapPanel
+    {
+        flex: 1;
+
+        padding: 20px;
+        margin-right: 40px;
+
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.2);
+    }
+
+
+/*********************************
+    Graph
+**********************************/
+
+    #grapGraphMain
+    {
+        flex: 4;
+        display: flex;
+        flex-direction: column;
+
+        padding: 20px;
+
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.2);
+    }
+
+
+/*********************************
+    Graph control panel
+**********************************/
+
+    #grapControl
+    {
+        margin: auto;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+
+        padding: 15px;
+        margin-bottom: 20px;
+
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.2);
+
+        flex-shrink: 0;
+    }
+
+    #grapMeasNewMain
+    {
+        flex: 2;
+    }
+
+    #grapMeasHistoryMain
+    {
+        flex: 6;
+        display: flex;
+    }
+
+    #grapExportMain
+    {
+        flex: 1;
+        display: flex;
+    }
+
+    #grapExport
+    {
+        flex: 1;
+    }
+
+    #grapMeasHistory
+    {
+        flex: 2;
+    }
+
+    #grapDateFrom
+    {
+        flex: 3;
+        margin-left: 50px;
+        margin-right: 20px;
+    }
+
+    #grapDateTo
+    {
+        flex: 3;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+
+
+/*********************************
+    Items
+**********************************/
+
+    .grapItem
+    {
+        width: 100%;
+        display: flex;
+
+        padding: 8px;
+        padding-left: 15px;
+        margin-right: 40px;
+        margin-bottom: 10px;
+
+        cursor: pointer;
+        color: #C0C0C0;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        text-align: left !important;
+
+        transition: 0.4s;
+    }
+
+    .grapItem:hover, .grapItemOn
+    {
+        background-color: #66c5bf !important;
+        color: white !important;
+    }
+
+    .grapItemRes
+    {
+        font-weight: 300;
+        flex: 1;
+    }
+
+    .grapItemMeas
+    {
+        font-weight: 600;
+        flex: 2;
+    }
+
+
+/*********************************
+    Graph
+**********************************/
+
+    #grapGraphContainer
+    {
+        width: 100%;
+        flex: 1;
+    }
+
+    #grapGraph      /* (TODO) (MOCK) Delete this whole class probably, after placing graph object */
+    {
+        margin: auto;
+        margin-top: 150px;
+        border: 1px dashed rgba(0,0,0,0.5);
+        color: rgba(0,0,0,0.5);
+        width: 50%;
+        text-align: center;
+    }
+
+
+/*********************************
+    Data pickers
+**********************************/
+
+    .ui-datepicker
+    {
+        margin-top: 10px;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 8px -3px rgba(0,0,0,0.3);
+    }
+
+    .ui-datepicker a
+    {
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .ui-datepicker a:hover
+    {
+        color: #66c5bf;
+        transition: color 0.4s;
+    }
+
+    .ui-datepicker-calendar
+    {
+        float: left;
+    }
+
+    .ui-datepicker-title
+    {
+        margin-bottom: 20px;
+        clear: both;
+        width: 100%;
+        text-align: center;
+    }
+
+    .ui-datepicker-title select
+    {
+        border: 0;
+    }
+
+    .ui-datepicker-year
+    {
+        margin-left: 15px;
+    }
+
+    .ui-datepicker-prev
+    {
+        float: left;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .ui-datepicker-next
+    {
+        float: right;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .ui-datepicker-calendar th, .ui-datepicker-calendar td
+    {
+        padding: 5px;
+        text-align: center;
+    }
+
+    .ui-datepicker-today
+    {
+        background-color: rgba(250, 247, 141, 0.35);
+    }
+
+    .ui-datepicker-current-day
+    {
+        background-color: #66c5bf !important;
+    }
+
+    .ui-datepicker-current-day a
+    {
+        color: white !important;
+    }
+
+    .ui-datepicker-unselectable
+    {
+        opacity: 0.2;
+    }
+
+
+
+
+

@@ -1,0 +1,55 @@
+<div id="grapMain">
+
+    <div id="grapContent">
+        <div id="grapPanel">
+            <div class="grapItem" data-hint="Click to show / hide this measurement from graph">
+                <div class="grapItemRes">Monitor 1 :: </div>
+                <div class="grapItemMeas">Temperature 1</div>
+            </div>
+
+            <div class="grapItem" data-hint="Click to show / hide this measurement from graph">
+                <div class="grapItemRes">Monitor 1 :: </div>
+                <div class="grapItemMeas">CPU load</div>
+            </div>
+
+            <div class="grapItem" data-hint="Click to show / hide this measurement from graph">
+                <div class="grapItemRes">Monitor 2 :: </div>
+                <div class="grapItemMeas">Temperature 3</div>
+            </div>
+
+            <div class="grapItem" data-hint="Click to show / hide this measurement from graph">
+                <div class="grapItemRes">Monitor 3 :: </div>
+                <div class="grapItemMeas">Trololo</div>
+            </div>
+
+        </div>
+
+
+        <div id="grapGraphMain">
+            <div id="grapControl">
+                <div id="grapMeasNewMain">
+                    <label  class="buttonMin"><input id="grapMeasNew" name="grapType" checked type="radio"/> Current measurements</label>
+                </div>
+
+                <div id="grapMeasHistoryMain">
+                    <label  class="buttonMin"><input id="grapMeasHistory" name="grapType" type="radio"/> Historical data</label>
+                    <input id="grapDateFrom" type="text" placeholder="Starting from"/>
+                    <input id="grapDateTo" type="text" placeholder="to"/>
+                </div>
+
+                <div id="grapExportMain">
+                    <button id="grapExport" class="button" data-hint="Click to export visible data to CSV.">Export CSV</button>
+                </div>
+            </div>
+
+            <div id="grapGraphContainer">
+                <div id="grapGraph">Zamiast #grapGraph należy tu wstawić obiekt wykresu i usunac #grapGraph w CSS.</div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="grapFooter"></div>
+
+</div>

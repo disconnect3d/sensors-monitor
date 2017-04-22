@@ -1,0 +1,96 @@
+
+#secComplex
+{
+    padding: 40px;
+}
+
+/*********************************
+    Control panel
+**********************************/    
+
+    .time-duration-picker-content
+    {
+        margin-top: 10px;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 8px -3px rgba(0,0,0,0.3);
+    }
+
+    #compMain
+    {
+        margin: auto;
+        width: 100%;
+       
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        
+        padding: 20px;
+        margin-bottom: 40px;
+
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.2);
+    }
+
+    #compTitle
+    {
+        width: 100%;
+        font-size: 1.6em;
+        color: rgba(0,0,0,0.5);
+        font-weight: 600;
+
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+        padding-bottom: 15px;
+        margin-bottom: 35px;
+    }
+
+    .compData
+    {
+        width: 100%;
+
+        margin-left: 50px;
+        margin-bottom: 50px;
+
+        display: flex;
+        align-items: center;
+    }
+
+    .compDataTitle
+    {
+        flex: 1;
+    }
+
+    .compDataValue
+    {
+        flex: 5;
+        padding-left: 20px;
+    }
+
+    #compSelected
+    {
+        margin-right: 50px;
+    }
+
+    #compMain input
+    {
+        width: 90%;
+    }
+
+    #compAdd
+    {
+        margin-right: 10%;
+        float: right;
+    }
+
+    #compInter, #compWindow
+    {
+        border: 0;
+        cursor: pointer;
+    }
+
+    #compInter:hover, #compWindow:hover
+    {
+        color: #66c5bf;
+    }

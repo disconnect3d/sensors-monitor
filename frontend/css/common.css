@@ -1,0 +1,419 @@
+/*********************************
+    Generic HTML elements
+**********************************/    
+
+    body 
+    {
+        margin:  0;
+        background-color: #eee;
+        font-family: 'Open Sans';
+    }
+
+
+/*********************************
+    Generic classes
+**********************************/    
+
+    .template
+    {
+        display: none;
+    }
+
+    #dim
+    {
+        background-color: rgba(0,0,0,0.5);
+        z-index: 100;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .button, .ui-button
+    {
+        padding: 10px 20px 10px 20px;
+        border: 2px solid #66c5bf;
+        border-radius: 7px;
+        color: #66c5bf;
+        background-color: transparent;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: 'Open Sans';
+        transition: 0.4s;
+    }
+
+    .button:hover, .ui-button:hover, .button:focus
+    {
+        color: white;
+        background-color: #66c5bf;
+    }   
+
+    .buttonMin
+    {
+        border: 0;
+        color: rgba(0, 0, 0, 0.5);
+        background-color: transparent;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: 'Open Sans';
+        transition: 0.4s;  
+    }
+
+    .buttonMin:hover, .buttonMin:focus, .buttonMinOn
+    {
+        color: #66c5bf !important;
+    }
+
+    input 
+    {
+        border: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+        padding-bottom: 1px;
+    }
+
+    input:focus
+    {
+        border-bottom-color: #66c5bf;
+        border-bottom-width: 2px;
+        padding-bottom: 0px;
+    }
+
+    .inputInvalid
+    {
+        border-bottom-color: red !important;
+    }
+
+/*********************************
+    Top menu
+**********************************/    
+
+    .pace-done .topBar
+    {
+        background-color: #66c5bf !important;
+    }
+
+    .topBar
+    {
+        width: 100%;
+        height: 20px;
+        background-color: rgba(102, 197, 191, 0.5); /*66c5bf*/
+    }
+
+    .navbar
+    {
+        margin-bottom: 0 !important;
+        background-color: white;
+        border: 0px;   
+        z-index: 2;
+    }
+
+    .navbar-brand
+    {
+        margin-left: 80px !important;
+        padding-top: 39px;
+        /*margin-right: -40px;*/
+        font-weight: 400;
+        float: left !important;
+        color: #66c5bf;
+        font-size: 24px;
+        text-shadow: 0px 0px 2px rgba(102, 197, 191, 0.25);
+    }
+
+    @media (max-width: 767px) 
+    {
+        .navbar-brand
+        {
+            margin-left: 40px !important;
+            padding-top: 15px !important;
+            font-size: 18px;
+        }
+
+        .navbar > .container-fluid
+        {
+            margin-right: 5% !important;
+        }
+    }
+
+
+    .navbar-brand:hover
+    {
+        color: #66c5bf;
+    }
+
+    .navbar > .container-fluid
+    {
+        margin-right: 10%;
+        font-family: 'Ubuntu';
+
+    }
+
+    .navMenu a:visited
+    {
+        background-color: white !important;
+        border: 0;
+    }
+
+    .navMenu a
+    {
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: 600;
+        height: 100px;
+        padding-top: 40px !important;
+        cursor: pointer;
+    }
+
+    .navMenu a::after
+    {
+        content: "";    
+        display: block;
+        width: 0%;
+        margin: auto;
+        margin-top: 3px;
+        height: 3px;
+        background-color: #66c5bf;
+        opacity: 0.5;
+        transition: 0.3s;
+    }
+
+    .navMenu a:hover::after, .navActive::after
+    {
+        width: 100% !important;
+        opacity: 1.0 !important;
+    }
+
+    .navActive
+    {
+        color: #66c5bf !important;
+    }
+
+    .navMenu a:hover
+    {
+        background-color: #e2fcf9 !important;
+        color: #66c5bf;
+        transition: color 0.4s;
+    }
+
+
+    .icon-bar
+    {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .navbar-header button:hover .icon-bar
+    {
+        background-color: #66c5bf !important;
+    }
+
+    .navbar-header button
+    {
+        border-color: #eeeeee;
+    }
+
+    .navbar-header button:hover
+    {
+        border-color: rgba(102, 197, 191, 0.5);
+    }
+
+
+    #middleBar
+    {
+        width: 100%;
+        height: 60px;
+
+        background: linear-gradient(to right, #8cddd7 0%,#91e9e5 22%,#8cdad5 50%,#95c9c7 71%,#abcbc8 86%,#9dc7c5 100%);
+    }
+
+
+/*********************************
+    User login
+**********************************/    
+
+    #userLogin
+    {
+        margin-left: 20px;
+        padding-top: 32px;   
+        font-size: 1.5em;
+        color: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+    }
+
+    #logOut
+    {
+        cursor: pointer;
+        font-family: 'Open Sans';
+        font-size: 0.8em;
+        font-weight: 400;
+    }
+
+    #userLogin:hover
+    {
+        color: #66c5bf;
+        transition: 0.4s;
+    }
+
+    #loginMenu
+    {
+        width: 250px;
+        position: fixed;      
+        z-index: 1;
+
+        padding: 20px;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 8px -3px rgba(0,0,0,0.3);
+    }
+
+    .loginMenuFull
+    {
+        top: 20% !important;
+        height: 60% !important;
+
+        left: 20% !important;
+        width: 60% !important;
+
+        z-index: 200 !important;        
+    }
+
+    #loginMenu input
+    {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    #loginMenu .button
+    {
+        margin-top: 10px;
+        width: 100%
+    }
+
+
+
+
+
+/*********************************
+    Status bar
+**********************************/    
+
+    #statusBar
+    {
+        position: fixed;
+        width: 100%;
+        height: 28px;
+        bottom: 0px;
+
+        background-color: #313131;
+        box-shadow: 0px -4px 5px -3px rgba(0,0,0,0.3);
+        overflow: hidden;
+
+        font-family: 'Open Sans';
+        font-weight: 400;
+    }
+
+    #statusBar i
+    {
+        margin-left: -5px;
+    }
+
+    #status
+    {
+        margin-left: 50px;
+        margin-top: 50px;
+        transition: 0.5s;
+    }
+
+    .statusShow
+    {
+        margin-top: 3px !important;
+        transition: 0.5s;
+    }
+
+    .statusInfo
+    {
+        color: #e8e8e8;
+    }
+
+    .statusOk
+    {
+        color: #38a838;
+    }
+
+    .statusError
+    {
+        color: #ff1516;
+    }
+
+
+
+
+/*********************************
+    Ask yes-no 
+**********************************/    
+
+    #askWrapper
+    {
+        position: fixed;      
+        z-index: 200;
+
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+
+        /*display: flex;*/
+        align-items: center;
+    }
+
+    #askWindow
+    {
+        margin: auto;
+        width: 270px;
+        height: 130px;
+
+        padding: 20px;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 8px -3px rgba(0,0,0,0.3);
+    }
+
+    #askButtons
+    {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    #askButtons .button
+    {
+        width: 40%;
+    }
+
+    #askButtons .button:first-child
+    {
+        margin-right: 15px;
+    }
+
+
+
+
+
+
+/*********************************
+    Content 
+**********************************/    
+
+#contentMain
+{
+    padding-bottom: 50px;
+}
+
+#contentSpacer
+{
+    width: 100%;
+    height: 50px;
+    clear: both;
+}
+
+
+
+

@@ -4,27 +4,145 @@
         <meta charset="UTF-8">
 
         <!-- Include fonts -->
-        <link   href = 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'/>
-        <link   href = 'http://fonts.googleapis.com/css?family=Ubuntu:300,600' rel='stylesheet' type='text/css'/>
+        <link   href = "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css"/>
+        <link   href = "http://fonts.googleapis.com/css?family=Ubuntu:300,600" rel="stylesheet" type="text/css"/>
+        <link   href = "http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
         <link   hrel = "stylesheet" href="multi/fonts/font_awesome/css/font-awesome.min.css"/>
         <link   rel  = "stylesheet" href="multi/fonts/recfont.css"/>
 
         <!-- Include libs -->
-        <script src  = "js/libs/jquery/jquery-3.2.0.min.js"></script>
-        <script src  = "js/libs/angular/angular.min.js"></script>
-        <script src  = "js/libs/pace/pace.min.js"></script>
-        <link   href = "js/libs/pace/pace.css" rel="stylesheet"/>
+        <script src  = "libs/jquery/jquery-3.2.0.min.js"></script>
+        <script src  = "libs/jqueryui/jquery-ui.js"></script>
+        <script src  = "libs/angular/angular.min.js"></script>
+        <script src  = "libs/pace/pace.min.js"></script>
+        <script src  = "libs/bootstrap/bootstrap.min.js"></script>
+        <script src  = "libs/fullpage/jquery.fullPage.min.js"></script>
+        <script src  = "libs/timePicker/jquery-time-duration-picker.min.js"></script>
+        <link   href = "libs/pace/pace.css" rel="stylesheet" type="text/css"/> 
+        <link   href = "libs/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link   href = "libs/fullpage/jquery.fullPage.css" rel="stylesheet" type="text/css"/>
       
         <!-- Include styles -->
-        <link   rel  = "stylesheet" href="css/styles.css" type="text/css"/>
+        <link   rel  = "stylesheet" href="css/common.css" type="text/css"/>
+        <link   rel  = "stylesheet" href="css/measurements.css" type="text/css"/>
+        <link   rel  = "stylesheet" href="css/complex.css" type="text/css"/>
+        <link   rel  = "stylesheet" href="css/graphs.css" type="text/css"/>
 
         <!-- Include JS scripts-->
-        <!--script src="js/scripts/scripts.js"></script-->
+        <script src  = "js/measurements.js"></script>
+        <script src  = "js/complex.js"></script>
+        <script src  = "js/graphs.js"></script>
+        <script src  = "js/dynamic.js"></script>
+        <script src  = "js/generic.js"></script>
 
         <title>Sensors Monitor</title>
     </head>
 
     <body data-ng-controller="mainCtrl">
         <div ng-view></div>
+
+
+        <!--*****************************************
+                Login window 
+            **************************************-->
+
+        <div id="loginMenu" class="template">
+            <input id="loginLogin" type="text"  placeholder="Login" data-required="true" data-hint="Type your user login.">
+            <input id="loginPass" type="password" placeholder="Password" data-required="true" data-hint="Type your user password.">
+
+            <button id="loginButton" class="button" data-hint="Click to log in.">Log in</button>
+        </div>
+
+
+        <!--*****************************************
+                Ask yes/no window 
+            **************************************-->
+
+        <div id="askWrapper" class="template">
+            <div id="askWindow" >
+                <div id="askMsg">Do you wanna banana?</div>
+                <div id="askButtons">
+                    <button id="askYes" class="button">Yes</button>
+                    <button id="askNo" class="button">No</button>
+                </div>
+            </div>
+        </div>
+
+        <!--*****************************************
+                Windows background
+            **************************************-->
+
+        <div id="dim" class="template"></div>
+
+
+        <!--*****************************************
+                Top Menu 
+            **************************************-->
+
+        <div class="topBar" data-hint="Shows page loading progress."></div> 
+
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-header ">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">SENSORS MONITOR</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+
+
+                    <div id="userLogin" class="nav navbar-nav navbar-right dropdown" data-hint="Click to log in.">
+                        <i class="fa fa-user"></i>
+                        <span id="logOut" class="template"> Log out </span>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right navMenu" >
+                        <li><a id="nav0" class="navLink" data-index="0" data-hint="Go to resource view.">RESOURCES</a></li>
+                        <li><a id="nav1" class="navLink" data-index="1" data-hint="Go to complex measurements view.">COMPLEX MEASUREMENTS</a></li>
+                        <li><a id="nav2" class="navLink" data-index="2" data-hint="Go to graphs view.">GRAPHS</a></li>
+                    </ul>
+
+                    <!--form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Search...">
+                    </form-->
+                </div>
+            </div>
+        </nav>
+
+        <div id="middleBar"></div> 
+
+
+        <!--*****************************************
+                Content
+            **************************************-->
+
+        <div id="contentMain">
+            <div class="section">
+                <div id="secMeasurements" class="slide" data-anchor="resources"></div>
+                <div id="secComplex" class="slide" data-anchor="complex">B</div>
+                <div id="secGraphs" class="slide" data-anchor="graphs">C</div>                
+            </div>
+        </div> 
+
+        <div id="contentSpacer"></div>
+
+        <!--*****************************************
+                Status bar 
+            **************************************-->
+
+        <div id="statusBar">
+            <div id="status">
+                <i class="fa fa-chevron-right"></i>
+                <i class="fa fa-chevron-right"></i>
+                <span id="statusText">This is some status</span>
+            </div>
+        </div> 
+
+
     </body>
 </html>

@@ -1,0 +1,347 @@
+
+#secMeasurements
+{
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/*********************************
+    Control panel
+**********************************/    
+
+    #measPanel
+    {
+        margin: auto;
+        width: 100%;
+       
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        
+        padding: 20px;
+        margin-bottom: 40px;
+
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.2);
+
+        flex-shrink: 0;
+    }
+
+    .measButtons
+    {
+        flex: 1;
+        margin-bottom: 15px;
+    }
+
+
+    #measPanel i
+    {
+        font-size: 2em;
+        margin-right: 10px;
+    }
+
+    #measPanel button
+    {
+        width: 140px;
+
+        margin-top: 7px;
+        margin-left: 15px;
+        
+        float: left;
+        display: flex;
+        align-items: center;        
+    }
+
+    #measSearchMain
+    {
+        display: flex;
+        flex-direction: row;
+        flex: 3;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    #measSearch
+    {
+        flex: 1;
+    }
+
+
+/*********************************
+    Select measurement for complex measurement
+**********************************/    
+
+    #measSelectComplex
+    {
+        margin: auto;
+        width: 100%;
+               
+        padding: 20px;
+        margin-bottom: 40px;
+
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.2);   
+
+        font-size: 1.3em;
+        position: relative;
+
+        flex-shrink: 0;
+    }
+
+    #measSelectComplex p
+    {
+        margin-right: 125px;
+        color: #ff1516;
+    }
+
+    #measCancelComplex
+    {
+        right: 50px;
+        top: 25px;
+        display: block;
+        position: absolute;
+    }
+
+
+/*********************************
+    Items - view independent
+**********************************/
+
+    #measItemsMain
+    {
+
+    }
+
+    #measItems
+    {
+        flex-grow: 1;
+        overflow: auto;
+        padding-right: 15px;
+    }
+
+    .measItem
+    {
+        cursor: pointer;
+    }
+    
+    .measItemRess i
+    {
+        width: 30px;
+        height: 30px;
+
+        display: block;
+        float: left;
+        
+        padding: 7px;
+        text-align: center;
+
+        background-color: rgb(0,0,0,0.6);
+        color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        transition: 0.4s;
+    }
+
+    .measItemRess i:hover, .measSelected i
+    {
+        color: white;
+        background-color: #66c5bf !important;
+    }
+
+    .measItemGraph
+    {
+        font-size: 1.3em;
+        float: right;
+        margin-top: 2px;
+    }
+
+    .measItemRes
+    {
+        width: 30px;
+        height: 30px;
+
+        margin-right: 10px;   
+        float: left;
+
+        overflow: hidden;
+    }
+
+    .measResName
+    {
+        font-weight: 300;
+    }
+
+    .measResValue
+    {
+        font-weight: 600;
+        margin-left: 10px;
+    }
+
+/*********************************
+    Items - grid view
+**********************************/    
+
+    .measGridView .measItem
+    {
+        float: left;
+        width: 250px;
+
+        padding: 30px;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.2);
+
+        margin-bottom: 15px;
+        margin-right: 15px;
+    }
+
+    .measGridView .measDetail
+    {
+        width: auto !important;
+        min-width: 250px;
+    }
+
+    .measGridView .measItemName
+    {
+        font-size: 1.5em;
+        color: rgba(0,0,0,0.5);
+        font-weight: 600;
+
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+        margin-bottom: 15px;
+    }
+
+
+    .measGridView .measItemRes
+    {
+        margin-bottom: 10px; 
+    }
+
+
+    .measGridView .measDetail .measItemRes
+    {
+        overflow: visible !important;  
+        margin-right: 0 !important;
+        float: none !important;
+        width: auto !important;
+    }
+
+    .measGridView .measItemRes:hover
+    {
+        
+    }
+
+    .measGridView .measResDet
+    {
+        height: 30px;
+ 
+        margin: 0 !important;
+
+        padding-left: 40px;
+        padding-right: 10px;
+        padding-top: 4px;
+
+        background-color: #f9f9f9;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-left: 0;
+    }
+
+
+
+
+/*********************************
+    Items - list view
+**********************************/    
+
+    .measListView .measItem
+    {
+        padding: 15px;
+        background-color: white;
+        border: 1px solid rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.2); 
+
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .measListView .measDetail
+    {
+        width: auto !important;
+        min-width: 250px;
+    }
+
+    .measListView .measHeader
+    {
+        flex: 2;
+        border-right: 1px solid rgba(0,0,0,0.3);
+        padding-right: 15px;
+        margin-right: 25px;
+    }
+
+    .measListView .measItemRess
+    {          
+        display: flex;
+    }
+
+    .measListView .measDetail .measItemRess
+    {
+        flex-direction: column;
+    }
+    
+    .measListView .measItemRes
+    {
+        display: flex;
+        align-items: center;  
+    }
+
+    .measListView .measDetail .measItemRes
+    {
+        overflow: visible !important;  
+        margin-right: 0 !important;
+        float: none !important;
+        width: auto !important;
+
+        margin-bottom: 10px;
+    }
+
+
+    .measListView .measItemRessMain
+    {
+        flex: 3;
+    }
+
+    .measListView .measItemName
+    {
+        font-size: 1.5em;
+        color: rgba(0,0,0,0.5);
+        font-weight: 600;
+
+        float: left;
+    }
+
+    .measListView  .measResDet
+    {
+        width: 100%;
+        height: 30px;
+ 
+        margin: 0 !important;
+
+        display: flex;
+        align-items: center;
+
+        padding-left: 10px;
+        padding-right: 10px;
+       
+
+        border-left: 0;
+    }
+
+    .measListView .measDetail .measResDet
+    {
+        background-color: #f9f9f9;
+        border: 1px solid rgba(0,0,0,0.2);
+    }
