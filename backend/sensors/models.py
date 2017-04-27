@@ -5,15 +5,24 @@ from django.db import models
 class SensorKind(models.Model):
     kind_name = models.CharField(max_length=64)
 
+    def __str__(self):
+        return self.kind_name
+
 
 class Host(models.Model):
     name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
 
 
 class Sensor(models.Model):
     host = models.ForeignKey(Host, on_delete=models.CASCADE)
     kind = models.ForeignKey(SensorKind)
     registered_at = models.DateTimeField()
+
+    def __str__(self):
+        return "{}@{} [{}]".format(self.kind.kind_name, self.host.name, self.registered_at)
 
 
 class ComplexMeasurement(models.Model):
@@ -35,6 +44,10 @@ class ComplexMeasurement(models.Model):
     frequency = models.BigIntegerField()
     owner = models.ForeignKey(User)
 
+    def __str__(self):
+        return "'{}' (owner: {}) : sensor {}, start: {}, end: {}, time window: {} s, freq: {} s".format(
+            self.name, self.owner, self.sensor, self.begin, self.end, self.time_window, self.frequency)
+
 
 class MeasurementValue(models.Model):
     """ Represents single measured value. API will return array of these. If complex_id is None, then it is measured 
@@ -44,6 +57,11 @@ class MeasurementValue(models.Model):
     measurement_time = models.DateTimeField()
     upload_time = models.DateTimeField()
     complex_id = models.ForeignKey(ComplexMeasurement, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return "Measurement for sensor {} : value = {}, measured on {}, uploaded on {}, calculated: {}".format(
+            self.sensor, self.value, self.measurement_time, self.upload_time,
+            ('false' if self.complex_id is None else 'true'))
 
     @property
     def complex(self):
