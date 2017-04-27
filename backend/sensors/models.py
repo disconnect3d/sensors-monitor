@@ -7,7 +7,7 @@ class SensorKind(models.Model):
 
 
 class Host(models.Model):
-    name = models.CharField(primary_key=True, max_length=64)
+    name = models.CharField(max_length=64)
 
 
 class Sensor(models.Model):
@@ -43,7 +43,7 @@ class MeasurementValue(models.Model):
     value = models.FloatField()
     measurement_time = models.DateTimeField()
     upload_time = models.DateTimeField()
-    complex_id = models.ForeignKey(ComplexMeasurement, on_delete=models.CASCADE, null=True)
+    complex_id = models.ForeignKey(ComplexMeasurement, on_delete=models.CASCADE, null=True, blank=True)
 
     @property
     def complex(self):
