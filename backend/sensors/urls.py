@@ -28,5 +28,8 @@ router.register(r'users', views.UserViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^hosts/$', views.HostList.as_view()),
+    url(r'^hosts/(?P<pk>[0-9]+)/$', views.HostDetail.as_view()),
 ]
