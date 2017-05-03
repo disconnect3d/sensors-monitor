@@ -30,6 +30,14 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^hosts/$', views.HostList.as_view()),
-    url(r'^hosts/(?P<pk>[0-9]+)/$', views.HostDetail.as_view()),
+    url(r'^hosts/$', views.HostList.as_view(), name='host-list'),
+    url(r'^hosts/(?P<pk>[0-9]+)/$', views.HostDetail.as_view(), name='host-detail'),
+    url(r'^hosts/(?P<pk>[0-9]+)/sensors/$', views.HostSensorsList.as_view(), name='host-sensor-list'),
+    url(r'^sensors/$', views.SensorList.as_view(), name='sensor-list'),
+    url(r'^sensors/(?P<pk>[0-9]+)/$', views.SensorDetail.as_view(), name='sensor-detail'),
+    url(r'^sensors/(?P<pk>[0-9]+)/measurements/$', views.SensorMeasurementsList.as_view(), name='sensor-measurement-list'),
+    url(r'^sensors/(?P<pk2>[0-9]+)/measurements/(?P<pk>[0-9]+)/$', views.SensorMeasurementsDetail.as_view(), name='sensor-measurement-detail'),
+
+    url(r'^sensor_kinds/$', views.SensorKindList.as_view(), name='sensorkind-list'),
+    url(r'^sensor_kinds/(?P<pk>[0-9]+)/$', views.SensorKindDetail.as_view(), name='sensorkind-detail'),
 ]
