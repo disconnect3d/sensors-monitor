@@ -1,9 +1,9 @@
-import os
-import psutil
 from optparse import OptionParser
 from datetime import datetime
-import json
 import uuid
+
+import Measures
+import Serializer
 
 
 # Parse arguments
@@ -13,58 +13,16 @@ parser.add_option("-n", "--name", dest="name", default=str(uuid.uuid1().urn[4:])
 (options, args) = parser.parse_args()
 
 
-memoryUse = psutil.virtual_memory()
-totalMemory = memoryUse.total/1024/1024
-availableMemory = memoryUse.available/1024/1024
-usedPercentMemory = memoryUse.percent
-memory = {
-    'Total memory [MB]': memoryUse.total,
-    'Available memory [MB]': memoryUse.available,
-    'Used memory [%]': memoryUse.percent
-}
-print(memory)
-
-cpuPercent = psutil.cpu_percent(percpu=True)
-# cpuPercent = psutil.cpu_percent(interval=1, percpu=True)
-cores = {}
-counter = 0
-for cpu in cpuPercent:
-    cores['Core '+str(counter)+' [%]'] = cpu
-    counter += 1
-print(cores)
-
-jsonBase = {
+json_base = {
     'host': options.name,
     'registered_at': 's'
 }
 
-measurementDate = str(datetime.utcnow())
+measures = Measures.combined()
+measurement_date = str((datetime.now() - datetime.fromtimestamp(0)).total_seconds())
 
-jsons = []
-for key, value in memory.items():
-    newJson = jsonBase.copy()
-    newJson["kind"] = key
-    newJson["values"] = [[measurementDate, value]]
-    jsons.append(newJson)
+packets = Serializer.packets(json_base, measurement_date, measures)
 
-for key, value in cores.items():
-    newJson = jsonBase.copy()
-    newJson["kind"] = key
-    newJson["values"] = [[measurementDate, value]]
-    jsons.append(newJson)
-
-for jsonData in jsons:
-    jsonString = json.dumps(jsonData)
+for jsonString in packets:
     print(jsonString)
 
-# json = json.dumps(jsonData)
-# print(json)
-
-
-# psutil.sensors_temperatures()
-# psutil.sensors_fans()
-# psutil.sensors_battery()
-
-
-# print('memory use:', memoryUse)
-# print('cpu use:', cpuPercent)
