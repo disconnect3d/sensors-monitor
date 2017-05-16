@@ -13,10 +13,15 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
     
     Expects JSON:
      {
-        'host': <host name>,
-        'kind': <sensor kind name>,
-        'registered_at': <datetime?>,
-        'values': [[time1, val1], [time2, val2], ...]
+        "host": <host name>,
+        "sensors": [ 
+            {
+                "kind": <sensor kind name>,
+                "registered_at": <datetime?>,
+                "values": [[time1, val1], [time2, val2], ...]
+            },
+            ...
+        ]
      }
      
      Where timeX is some time data (datetimes or seconds after epoch) and valX is value in that particular time.
@@ -27,23 +32,32 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
 
         self.stdout.write("Got data={}".format(data))
 
-        if set(data.keys()) != {'host', 'kind', 'registered_at', 'values'}:
-            self.request.send('Wrong fields. Required: host, kind, registered_at, values')
+        valid = True
+        if set(data.keys()) != {'host', 'sensors'}:
+            self.request.send('Wrong fields. Required: host, sensors')
             return
 
-        s = Sensor.objects.get(host__name=data['host'], kind__name=data['kind'], registered_at=data['registered_at'])
+        for sensor in data['sensors']:
+            if sensor.keys() != {'kind', 'registered_at', 'values'}:
+                self.request.send('Wrong sensor fields. Required: kind, registered_at, values')
+                return
 
-        def create_measurement(value, time):
-            return MeasurementValue(
-                sensor=s,
-                value=value,
-                measurement_time=time,
-                upload_time=arrow.utcnow()
+        host = data['host']
+
+        for sensor in data['sensors']:
+            s = Sensor.objects.get(host__name=host, kind__name=sensor['kind'], registered_at=sensor['registered_at'])
+
+            def create_measurement(value, time):
+                return MeasurementValue(
+                    sensor=s,
+                    value=value,
+                    measurement_time=time,
+                    upload_time=arrow.utcnow()
+                )
+
+            MeasurementValue.objects.bulk_create(
+                [create_measurement(value, time) for (value, time) in sensor['values']]
             )
-
-        MeasurementValue.objects.bulk_create(
-            [create_measurement(value, time) for (value, time) in data['values']]
-        )
 
     def get_json(self):
         buf = self.request.recv(1024)
