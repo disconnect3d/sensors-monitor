@@ -7,7 +7,7 @@ import networking
 
 # Parse arguments
 parser = OptionParser()
-parser.add_option("-n", "--name", dest="name", required=True,
+parser.add_option("-n", "--name", dest="name", default="NeckBook-Pro",
                   help="name this pc", metavar="NAME")
 parser.add_option("-s", "--server", dest="server", default="disconnect3d.pl",
                   help="server ip", metavar="SERVER")
@@ -24,10 +24,10 @@ networking.open_connection(options.server, options.port)
 
 while 1:
     try:
-        measures = measures.combined()
+        retrieved_measures = measures.combined()
         measurement_date = arrow.utcnow().timestamp
 
-        packet = serializer.packets(json_base, measurement_date, measures)
+        packet = serializer.packets(json_base, measurement_date, retrieved_measures)
 
         print(packet)
         networking.send(packet)

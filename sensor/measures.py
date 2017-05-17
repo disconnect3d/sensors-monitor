@@ -24,5 +24,5 @@ def cpu():
     # cpu_percent = psutil.cpu_percent(percpu=True)
     cpu_percent = psutil.cpu_percent(interval=1, percpu=True)
     return {
-        'Core %d [%%]' % counter for counter, cpu in enumerate(cpu_percent)
+        'Core %d [%%]' % counter: cpu for counter, cpu in enumerate(cpu_percent)
     }
