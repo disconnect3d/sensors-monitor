@@ -46,7 +46,7 @@
           .done(function( data ) {
               addMonitor(monitorName, monitorId);
              $.each(data, function(i, obj) {
-                 addSensors(monitorId, obj.kind.kind_name, 0);
+                 addSensors(monitorId, monitorName, obj.id, obj.kind.kind_name, 0);
                 });
           })
           .fail(function( xhr, status, errorThrown ) {
@@ -125,14 +125,23 @@
 
         $("#measSearch").on('change keyup paste', measSearchResources);
 
-
         $("#measItems").on('click', '.measItem', function (e) {
             //alert("measitem");
-           measToggleView(e);
+            measToggleView(e);
         });
 
          $("#measItems").on('click', '.measAdd', function (e) {
-           measAdd(e);
+             measAdd(e);
+             $('#grapPanel').children('.grapItem').remove();
+
+             $('#measItems').find('.measSelected').each(function(){
+                 $('#grapPanel').append(
+                     '<div class="grapItem" data-hint="Click to show / hide this measurement from graph">'+
+                     '<div class="grapItemRes">'+$(this).attr("data-monitor-name")+' :: </div>'+
+                     '<div class="grapItemMeas">'+$(this).find(".measResName").text()+'</div>'+
+                     '</div>'
+                 );
+             });
         });
 
 
