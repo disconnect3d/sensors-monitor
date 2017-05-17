@@ -1,3 +1,33 @@
+/*********************************
+ Dynamic (Ajax response) based context
+**********************************/
+
+
+function addMonitor(){
+    alert("Add monitor");
+    var monitorDiv = "<div class='measItem measSimpleView' data-hint='Click to toggle between simplified and detailed view.'>" +
+        "<div class='measHeader'>" +
+            "<div class='measItemName'>" +
+                "Default Monitor" +
+            "</div>" +
+        "</div>" +
+        "<div class='measItemRessMain'>" +
+            "<div class='measItemRess' id='hostname'></div></div></div>";
+
+    $("#measItems").append(monitorDiv);
+}
+
+function addSensors(monitorID) {
+    var singleSensorDiv = "<div class='measItemRes measAdd'>" +
+                    "<i class='fa fa-thermometer-full' data-hint='Select (deselect) this measurement to the graph view.'></i>" +
+                    "<div class='measResDet'> <span class='measResName'>key</span> <span class='measResValue'>value</span></div></div>";
+    $("#" + monitorID).append(singleSensorDiv);
+}
+
+
+
+
+
 
 /*********************************
  Generic
@@ -69,7 +99,6 @@
                $(this).find(".measAdd").addClass("measSelected")
            }
         });
-        //$(".measAdd").addClass("measSelected");
     }
 
     // Deselect all measurements

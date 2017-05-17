@@ -56,11 +56,14 @@
 
 
         // Hints
-        $('[data-hint]').hover(function() 
-        {
-            statusInfo($(this).data('hint'));
-        },
-        statusHideInfo); 
+        $(document.body).on('mouseenter', '[data-hint]', function() {
+            statusInfo($(this).data('hint'))
+        });
+
+         $(document.body).on('mouseleave', '[data-hint]', function() {
+            statusHideInfo();
+        });
+
 
 
         // Navigation
@@ -88,18 +91,25 @@
         
     function setupMeasEvents()
     {
-        $("#measButGrid").click(measShowGrid);         
+        $("#measButGrid").click(measShowGrid);
         $("#measButList").click(measShowList);         
         $("#measButSimple").click(measShowSimple);         
         $("#measButDetail").click(measShowDetail);         
         $("#measButSelect").click(measSelectAll);         
-        $("#measButDeselect").click(measDeselectAll);         
+        $("#measButDeselect").click(measDeselectAll);
 
         $("#measSearch").on('change keyup paste', measSearchResources);
 
 
-        $(".measItem").click(measToggleView);         
-        $(".measAdd").click(measAdd);                    
+        $("#measItems").on('click', '.measItem', function (e) {
+            //alert("measitem");
+           measToggleView(e);
+        });
+
+         $("#measItems").on('click', '.measAdd', function (e) {
+           measAdd(e);
+        });
+
 
         $("#measCancelComplex").click(measCancelComplex);      
 
@@ -181,12 +191,15 @@
     // When document loads
     $(document).ready(function()
     {
+
         // Load layouts and init events
         setupEvents();
 
         $("#secMeasurements").load("layout/meas.html", setupMeasEvents);
         $("#secComplex").load("layout/complex.html", setupCompEvents);
         $("#secGraphs").load("layout/graphs.html", setupGrapEvents);
+
+
 
 
         // Init scrolling sections
@@ -199,6 +212,9 @@
             afterSlideLoad: onSlideLoad
         });
 
+        addMonitor();
+        addSensors("hostname");
+
         // Initial        
         loadSlide(0);
         measShowGrid();
@@ -206,6 +222,9 @@
 
         // Initial resize
         windowResize();
+
+
+
     });
 
     // When resolution/size changes
