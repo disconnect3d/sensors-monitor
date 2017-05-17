@@ -1,3 +1,30 @@
+/*********************************
+ Dynamic (Ajax response) based context
+**********************************/
+
+
+function addMonitor(monitorName, monitorId){
+    var monitorDiv = "<div class='measItem measSimpleView' data-hint='Click to toggle between simplified and detailed view.'>" +
+        "<div class='measHeader'>" +
+            "<div class='measItemName'>" +
+                monitorName +
+            "</div>" +
+        "</div>" +
+        "<div class='measItemRessMain'>" +
+            "<div class='measItemRess' id=" + monitorId + "></div></div></div>";
+
+    $("#measItems").append(monitorDiv);
+}
+
+function addSensors(monitorID, monitorName, sensorId, key, value) {
+    var singleSensorDiv = "<div class='measItemRes measAdd' data-sensor-id='"+sensorId+"' data-monitor-name='"+monitorName+"'>" +
+                    "<i class='fa fa-thermometer-full' data-hint='Select (deselect) this measurement to the graph view.'></i>" +
+                    "<div class='measResDet'> <span class='measResName'>" + key + "</span> <span class='measResValue'>" + value +"</span></div></div>";
+    $("#" + monitorID).append(singleSensorDiv);
+}
+
+
+
 
 /*********************************
  Generic
@@ -64,7 +91,11 @@
     // Select all measurements
     function measSelectAll()
     {
-        $(".measAdd").addClass("measSelected");
+        $(".measItem").each(function(){
+           if (!$(this).hasClass("template")){
+               $(this).find(".measAdd").addClass("measSelected")
+           }
+        });
     }
 
     // Deselect all measurements
@@ -86,6 +117,19 @@
     {
         compSelectionActive = false;
         $("#measSelectComplex").addClass("template");
+    }
+
+    // Search bar filter functionality
+    function measSearchResources()
+    {
+        var value = $(this).val();
+        $(".measItem").each(function(){
+            if (($(this).find(".measItemName").text().indexOf(value) >=0) || ($(this).find(".measResName").text().indexOf(value) >=0) ){
+                $(this).removeClass("template");
+            } else {
+                $(this).addClass("template");
+            }
+        });
     }
 
         
