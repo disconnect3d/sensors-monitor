@@ -25,7 +25,7 @@ SECRET_KEY = '0=t_dl#wk8g6)yd&qpk2a%htb_3^lda3=t7!^(-16e_gyxqdc@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # external modules
     'rest_framework',
+    'corsheaders',
 
     # our apps
     'sensors'
@@ -48,12 +49,21 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# CORS settings #TODO/FIXME: Change on production
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ('*',)
+CORS_ORIGIN_REGEX_WHITELIST = ('*', '.*')
 
 ROOT_URLCONF = 'sensors.urls'
 
