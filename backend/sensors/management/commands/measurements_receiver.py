@@ -48,15 +48,16 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
             s = Sensor.objects.get(host__name=host, kind__kind_name=sensor['kind'], registered_at=sensor['registered_at'])
 
             def create_measurement(value, time):
+                #print(value, time)
                 return MeasurementValue(
                     sensor=s,
                     value=value,
-                    measurement_time=time,
-                    upload_time=arrow.utcnow()
+                    measurement_time=arrow.get(time).datetime,
+                    upload_time=arrow.utcnow().datetime
                 )
 
             MeasurementValue.objects.bulk_create(
-                [create_measurement(value, int(time)) for (time, value) in sensor['values']]
+                [create_measurement(value, time) for (time, value) in sensor['values']]
             )
 
     def get_json(self):
