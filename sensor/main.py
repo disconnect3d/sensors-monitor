@@ -1,5 +1,6 @@
 from optparse import OptionParser
 import arrow
+import errno
 
 import measures
 import serializer
@@ -33,6 +34,21 @@ while 1:
         networking.send(packet)
     except KeyboardInterrupt:
         break
+    except networking.client_socket.error as e:
+        if isinstance(e.args, tuple):
+            print
+            "errno is %d" % e[0]
+            if e[0] == errno.EPIPE:
+                # remote peer disconnected
+                print
+                "Detected remote disconnect"
+                networking.open_connection(options.server, options.port)
+            else:
+                # determine and handle different error
+                pass
+        else:
+            print
+            "socket error ", e
 
 
 networking.close_connection()
