@@ -9,8 +9,8 @@ def open_connection(ip, port):
 
 
 def send(string):
-    data = input(string)
-    client_socket.send(data)
+    data = string.encode()
+    client_socket.sendall(data)
 
 
 def close_connection():

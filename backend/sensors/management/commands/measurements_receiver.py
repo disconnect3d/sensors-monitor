@@ -10,7 +10,7 @@ from sensors.models import Sensor, MeasurementValue
 class MeasurementsPostHandler(socketserver.BaseRequestHandler):
     """
     Measurements TCP Server requests handler.
-    
+
     Expects JSON:
      {
         "host": <host name>,
@@ -23,7 +23,7 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
             ...
         ]
      }
-     
+
      Where timeX is some time data (datetimes or seconds after epoch) and valX is value in that particular time.
     """
 
@@ -32,7 +32,6 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
 
         self.stdout.write("Got data={}".format(data))
 
-        valid = True
         if set(data.keys()) != {'host', 'sensors'}:
             self.request.send('Wrong fields. Required: host, sensors')
             return
@@ -45,7 +44,8 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
         host = data['host']
 
         for sensor in data['sensors']:
-            s = Sensor.objects.get(host__name=host, kind__name=sensor['kind'], registered_at=sensor['registered_at'])
+            sensor['registered_at'] = arrow.get(sensor['registered_at']).datetime
+            s = Sensor.objects.get(host__name=host, kind__kind_name=sensor['kind'], registered_at=sensor['registered_at'])
 
             def create_measurement(value, time):
                 return MeasurementValue(
@@ -56,7 +56,7 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
                 )
 
             MeasurementValue.objects.bulk_create(
-                [create_measurement(value, time) for (value, time) in sensor['values']]
+                [create_measurement(value, int(time)) for (time, value) in sensor['values']]
             )
 
     def get_json(self):
@@ -75,7 +75,7 @@ class Command(BaseCommand):
     help = 'Serves TCP server for sensors measurements'
 
     def add_arguments(self, parser):
-        parser.add_argument('--host', nargs='?', type=str, default='0.0.0.0', required=False)
+        parser.add_argument('--host', nargs='?', type=str, default='localhost', required=False)
         parser.add_argument('-p', '--port', nargs='?', type=int, default=9000, required=False)
 
     def handle(self, *args, **options):

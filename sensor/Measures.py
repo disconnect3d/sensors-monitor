@@ -21,8 +21,8 @@ def memory():
 
 
 def cpu():
-    cpu_percent = psutil.cpu_percent(percpu=True)
-    # cpu_percent = psutil.cpu_percent(interval=1, percpu=True)
+    # cpu_percent = psutil.cpu_percent(percpu=True)
+    cpu_percent = psutil.cpu_percent(interval=1, percpu=True)
     cores = {}
     counter = 0
     for cpu in cpu_percent:
