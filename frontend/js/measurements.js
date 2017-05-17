@@ -98,7 +98,7 @@
     {
         var value = $(this).val();
         $(".measItem").each(function(){
-            if ($(this).find(".measItemName").text().indexOf(value) >=0){
+            if (($(this).find(".measItemName").text().indexOf(value) >=0) || ($(this).find(".measResName").text().indexOf(value) >=0) ){
                 $(this).removeClass("template");
             } else {
                 $(this).addClass("template");
