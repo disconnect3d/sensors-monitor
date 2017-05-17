@@ -1,10 +1,14 @@
 import json
 import socketserver
+import socket
 
 import arrow as arrow
 from django.core.management.base import BaseCommand
 
 from sensors.models import Sensor, MeasurementValue
+
+
+socket.setdefaulttimeout(90)
 
 
 class MeasurementsPostHandler(socketserver.BaseRequestHandler):
@@ -28,42 +32,45 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
     """
 
     def handle(self):
-        data = self.get_json()
+        # receive as much measurements as possible
+        # if client fails, we will just timeout
+        while True:
+            data = self.get_json()
 
-        self.stdout.write("Got data={}".format(data))
+            self.stdout.write("Got data={}".format(data))
 
-        if set(data.keys()) != {'host', 'sensors'}:
-            self.request.send('Wrong fields. Required: host, sensors')
-            return
-
-        for sensor in data['sensors']:
-            if sensor.keys() != {'kind', 'registered_at', 'values'}:
-                self.request.send('Wrong sensor fields. Required: kind, registered_at, values')
+            if set(data.keys()) != {'host', 'sensors'}:
+                self.request.send('Wrong fields. Required: host, sensors')
                 return
 
-        host = data['host']
+            for sensor in data['sensors']:
+                if sensor.keys() != {'kind', 'registered_at', 'values'}:
+                    self.request.send('Wrong sensor fields. Required: kind, registered_at, values')
+                    return
 
-        for sensor in data['sensors']:
-            sensor['registered_at'] = arrow.get(sensor['registered_at']).datetime
+            host = data['host']
 
-            try:
-                s = Sensor.objects.get(host__name=host, kind__kind_name=sensor['kind'], registered_at=sensor['registered_at'])
-            except Sensor.DoesNotExist:
-                self.stderr.write('Sensor does not exist. Host={}, kind={}, registered_at={}'.format(host, sensor['kind'], sensor['registered_at']))
-                continue
+            for sensor in data['sensors']:
+                sensor['registered_at'] = arrow.get(sensor['registered_at']).datetime
 
-            def create_measurement(value, time):
-                #print(value, time)
-                return MeasurementValue(
-                    sensor=s,
-                    value=value,
-                    measurement_time=arrow.get(time).datetime,
-                    upload_time=arrow.utcnow().datetime
+                try:
+                    s = Sensor.objects.get(host__name=host, kind__kind_name=sensor['kind'], registered_at=sensor['registered_at'])
+                except Sensor.DoesNotExist:
+                    self.stderr.write('Sensor does not exist. Host={}, kind={}, registered_at={}'.format(host, sensor['kind'], sensor['registered_at']))
+                    continue
+
+                def create_measurement(value, time):
+                    #print(value, time)
+                    return MeasurementValue(
+                        sensor=s,
+                        value=value,
+                        measurement_time=arrow.get(time).datetime,
+                        upload_time=arrow.utcnow().datetime
+                    )
+
+                MeasurementValue.objects.bulk_create(
+                    [create_measurement(value, time) for (time, value) in sensor['values']]
                 )
-
-            MeasurementValue.objects.bulk_create(
-                [create_measurement(value, time) for (time, value) in sensor['values']]
-            )
 
     def get_json(self):
         buf = self.request.recv(1024)
