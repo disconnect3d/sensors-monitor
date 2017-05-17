@@ -3,24 +3,23 @@
 **********************************/
 
 
-function addMonitor(){
-    alert("Add monitor");
+function addMonitor(monitorName, monitorId){
     var monitorDiv = "<div class='measItem measSimpleView' data-hint='Click to toggle between simplified and detailed view.'>" +
         "<div class='measHeader'>" +
             "<div class='measItemName'>" +
-                "Default Monitor" +
+                monitorName +
             "</div>" +
         "</div>" +
         "<div class='measItemRessMain'>" +
-            "<div class='measItemRess' id='hostname'></div></div></div>";
+            "<div class='measItemRess' id=" + monitorId + "></div></div></div>";
 
     $("#measItems").append(monitorDiv);
 }
 
-function addSensors(monitorID) {
+function addSensors(monitorID, key, value) {
     var singleSensorDiv = "<div class='measItemRes measAdd'>" +
                     "<i class='fa fa-thermometer-full' data-hint='Select (deselect) this measurement to the graph view.'></i>" +
-                    "<div class='measResDet'> <span class='measResName'>key</span> <span class='measResValue'>value</span></div></div>";
+                    "<div class='measResDet'> <span class='measResName'>" + key + "</span> <span class='measResValue'>" + value +"</span></div></div>";
     $("#" + monitorID).append(singleSensorDiv);
 }
 

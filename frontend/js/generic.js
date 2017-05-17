@@ -32,42 +32,29 @@
         $("#dim").css("display", "none");
     }
 
-    function makeAjaxCall(hostname)
+    function makeAjaxCall(hostname, monitorName, monitorId)
     {
         $.ajax({
-
             url: hostname,
-
-            // The data to send (will be converted to a query string)
             data: {
                 id: 123
             },
-
             crossDomain: true,
-
-            // Whether this is a POST or GET request
             type: "GET",
-
-            // The type of data we expect back
             dataType : "json",
         })
-          // Code to run if the request succeeds (is done);
-          // The response is passed to the function
-          .done(function( json ) {
-             alert(json);
+          .done(function( data ) {
+              addMonitor(monitorName, monitorId);
+             $.each(data, function(i, obj) {
+                 addSensors(monitorId, obj.kind.kind_name, 0);
+                });
           })
-          // Code to run if the request fails; the raw request and
-          // status codes are passed to the function
           .fail(function( xhr, status, errorThrown ) {
             alert( "Sorry, there was a problem!" );
             console.log( "Error: " + errorThrown );
             console.log( "Status: " + status );
             console.dir( xhr );
           })
-          // Code to run regardless of success or failure;
-          .always(function( xhr, status ) {
-            alert( "The request is complete!" );
-          });
     }
 
 
@@ -250,10 +237,7 @@
             afterSlideLoad: onSlideLoad
         });
 
-        makeAjaxCall("http://disconnect3d.pl:1337/sensors/")
-
-        addMonitor();
-        addSensors("hostname");
+        makeAjaxCall("http://disconnect3d.pl:1337/sensors/", "Monitor 1", "m1");
 
         // Initial        
         loadSlide(0);
@@ -262,7 +246,6 @@
 
         // Initial resize
         windowResize();
-
 
 
     });
