@@ -21,7 +21,7 @@ json_base = {
     'host': options.name,
 }
 
-networking.open_connection(options.server, options.port)
+networking.open_connection(options.server, int(options.port))
 
 while 1:
     try:
