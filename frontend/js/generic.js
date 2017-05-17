@@ -46,7 +46,18 @@
           .done(function( data ) {
               addMonitor(monitorName, monitorId);
              $.each(data, function(i, obj) {
-                 addSensors(monitorId, obj.kind.kind_name, 0);
+                 var key = obj.kind.kind_name;
+                 $.ajax({
+                    url: hostname + obj.id + "/measurements",
+                    data: {
+                        id: 123
+                    },
+                    crossDomain: true,
+                    type: "GET",
+                    dataType : "json",
+                }).done(function( data ) {
+                    addSensors(monitorId, key , data[data.length-1].value);
+                 });
                 });
           })
           .fail(function( xhr, status, errorThrown ) {
