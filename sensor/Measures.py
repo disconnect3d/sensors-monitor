@@ -23,9 +23,6 @@ def memory():
 def cpu():
     # cpu_percent = psutil.cpu_percent(percpu=True)
     cpu_percent = psutil.cpu_percent(interval=1, percpu=True)
-    cores = {}
-    counter = 0
-    for cpu in cpu_percent:
-        cores['Core '+str(counter)+' [%]'] = cpu
-        counter += 1
-    return cores
+    return {
+        'Core %d [%%]' % counter for counter, cpu in enumerate(cpu_percent)
+    }
