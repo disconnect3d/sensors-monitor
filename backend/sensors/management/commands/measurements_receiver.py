@@ -45,7 +45,12 @@ class MeasurementsPostHandler(socketserver.BaseRequestHandler):
 
         for sensor in data['sensors']:
             sensor['registered_at'] = arrow.get(sensor['registered_at']).datetime
-            s = Sensor.objects.get(host__name=host, kind__kind_name=sensor['kind'], registered_at=sensor['registered_at'])
+
+            try:
+                s = Sensor.objects.get(host__name=host, kind__kind_name=sensor['kind'], registered_at=sensor['registered_at'])
+            except Sensor.DoesNotExist:
+                self.stderr.write('Sensor does not exist. Host={}, kind={}, registered_at={}'.format(host, sensor['kind'], sensor['registered_at']))
+                continue
 
             def create_measurement(value, time):
                 #print(value, time)
@@ -84,8 +89,10 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('Hosting measurements TCP server at %s:%d' % (host, port)))
 
-        # fixme/hacky way to get stdout writer in request handler...
+        # fixme/hacky way to get stdout/stderr writer in request handler...
         MeasurementsPostHandler.stdout = self.stdout
+        MeasurementsPostHandler.stderr = self.stderr
+
 
         with socketserver.TCPServer((host, port), MeasurementsPostHandler) as server:
             # Activate the server; this will keep running until you
