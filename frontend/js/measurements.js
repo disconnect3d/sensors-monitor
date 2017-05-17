@@ -64,7 +64,12 @@
     // Select all measurements
     function measSelectAll()
     {
-        $(".measAdd").addClass("measSelected");
+        $(".measItem").each(function(){
+           if (!$(this).hasClass("template")){
+               $(this).find(".measAdd").addClass("measSelected")
+           }
+        });
+        //$(".measAdd").addClass("measSelected");
     }
 
     // Deselect all measurements
@@ -86,6 +91,19 @@
     {
         compSelectionActive = false;
         $("#measSelectComplex").addClass("template");
+    }
+
+    // Search bar filter functionality
+    function measSearchResources()
+    {
+        var value = $(this).val();
+        $(".measItem").each(function(){
+            if ($(this).find(".measItemName").text().indexOf(value) >=0){
+                $(this).removeClass("template");
+            } else {
+                $(this).addClass("template");
+            }
+        });
     }
 
         

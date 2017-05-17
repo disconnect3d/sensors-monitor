@@ -95,6 +95,9 @@
         $("#measButSelect").click(measSelectAll);         
         $("#measButDeselect").click(measDeselectAll);         
 
+        $("#measSearch").on('change keyup paste', measSearchResources);
+
+
         $(".measItem").click(measToggleView);         
         $(".measAdd").click(measAdd);                    
 
