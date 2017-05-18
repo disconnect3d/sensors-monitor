@@ -184,15 +184,10 @@
         flex: 1;
     }
 
-    #grapGraph      /* (TODO) (MOCK) Delete this whole class probably, after placing graph object */
-    {
-        margin: auto;
-        margin-top: 150px;
-        border: 1px dashed rgba(0,0,0,0.5);
-        color: rgba(0,0,0,0.5);
-        width: 50%;
-        text-align: center;
-    }
+#graph {
+    width: 1372px;
+    height: 200px;
+}
 
 
 /*********************************
