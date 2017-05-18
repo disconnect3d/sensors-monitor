@@ -19,5 +19,5 @@ def send(string):
 
 def close_connection():
     global client_socket
-    client_socket.close()
+    client_socket.shutdown(1)
 

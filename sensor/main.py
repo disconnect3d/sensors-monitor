@@ -51,4 +51,5 @@ while 1:
             "socket error ", e
 
 
+print("closing connection")
 networking.close_connection()
