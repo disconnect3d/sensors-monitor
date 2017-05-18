@@ -1,3 +1,4 @@
+var hostname = "http://disconnect3d.pl:1337/sensors/";
 
 /*********************************
     Items
@@ -5,7 +6,21 @@
 
     function grapItemClick(e)
     {
+        $('#grapPanel').find('.grapItem').removeClass("grapItemOn");
         $(e.target).closest(".grapItem").toggleClass("grapItemOn", 300);
+            $.ajax({
+            url: hostname + $(e.target).closest('.grapItem').attr('data-id') + "/measurements",
+            crossDomain: true,
+            type: "GET",
+            dataType: "json",
+        }).done(function (data) {
+            var graphData = [];
+            for (var i = 0; i < data.length; i++) {
+                graphData.push([new Date(data[i].measurement_time).getTime(), data[i].value]);
+            }
+            console.log(graphData);
+            $.plot($("#graph"), [graphData], {xaxis: { mode: "time" }} );
+        });
     }
 
     function grapGetDate(element)
