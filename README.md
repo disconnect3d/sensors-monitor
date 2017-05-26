@@ -10,3 +10,5 @@ http://disconnect3d.pl:1337/admin/
 http://re.disconnect3d.pl/frontend/
 
 http://disconnect3d.pl:1337/sensors/1/measurements/
+
+[![Build Status](https://travis-ci.org/disconnect3d/sensors-monitor.svg?branch=master)](https://travis-ci.org/disconnect3d/sensors-monitor)
