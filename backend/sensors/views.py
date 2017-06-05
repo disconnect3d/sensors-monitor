@@ -9,7 +9,7 @@ from rest_framework import generics
 
 from .models import SensorKind, Host, Sensor, ComplexMeasurement, MeasurementValue, User
 from .serializers import UserSerializer, SensorKindSerializer, HostSerializer, SensorSerializer, \
-    ComplexMeasurementSerializer, MeasurementValueSerializer
+    ComplexMeasurementSerializer, MeasurementValueSerializer, MeasurementsListSimplifiedSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -145,7 +145,7 @@ class SensorMeasurementsList(APIView):
         except Sensor.DoesNotExist:
             raise Http404
         measurements = sensor.measurementvalue_set.all()
-        serializer = MeasurementValueSerializer(measurements, many=True, context={'request': request})
+        serializer = MeasurementsListSimplifiedSerializer(measurements, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, pk, format=None):
@@ -166,4 +166,3 @@ class SensorMeasurementsDetail(mixins.DestroyModelMixin, generics.GenericAPIView
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-

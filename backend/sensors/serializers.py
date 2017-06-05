@@ -43,3 +43,10 @@ class ComplexMeasurementSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ComplexMeasurement
         fields = ('id', 'sensor', 'name', 'begin', 'end', 'time_window', 'frequency', 'owner')
+
+
+class MeasurementsListSimplifiedSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = MeasurementValue
+        fields = ('value', 'measurement_time')
+
