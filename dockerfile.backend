@@ -15,12 +15,10 @@ ADD ./backend /code/
 RUN python manage.py migrate
 RUN python manage.py loaddata 002fixture.json
 
-# NOTE: This script must be mounted externally
+# NOTE: The `envvars.sh` script must be mounted externally
 # it must export an env var "DJANGO_APP_SECRET_KEY" with a random value
 # this CANNOT be in source control
-RUN source /envvars.sh
-
-CMD DJANGO_SETTINGS_MODULE=sensors.prod_settings gunicorn sensors.wsgi:application
+CMD ./envvars.sh && DJANGO_SETTINGS_MODULE=sensors.prod_settings gunicorn sensors.wsgi:application
 
 ### Used previously for debug/dev builds
 ###CMD python manage.py runserver
