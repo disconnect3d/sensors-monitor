@@ -19,14 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0=t_dl#wk8g6)yd&qpk2a%htb_3^lda3=t7!^(-16e_gyxqdc@'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -59,12 +51,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORS settings #TODO/FIXME: Change on production
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ('*',)
-CORS_ORIGIN_REGEX_WHITELIST = ('*', '.*')
-
 ROOT_URLCONF = 'sensors.urls'
 
 TEMPLATES = [
@@ -88,13 +74,6 @@ WSGI_APPLICATION = 'sensors.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation

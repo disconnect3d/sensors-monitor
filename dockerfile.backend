@@ -2,13 +2,25 @@ FROM python:3
 
 ENV PYTHONBUFFERED 1
 
+# https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/gunicorn/#running-django-in-gunicorn-as-a-generic-wsgi-application
+RUN pip install gunicorn
+
 RUN mkdir /code
 WORKDIR /code
 ADD ./backend/requirements.txt /code/
 RUN pip install -r requirements.txt
 ADD ./backend /code/
 
+
 RUN python manage.py migrate
 RUN python manage.py loaddata 002fixture.json
 
-CMD python manage.py runserver
+# NOTE: This script must be mounted externally
+# it must export an env var "DJANGO_APP_SECRET_KEY" with a random value
+# this CANNOT be in source control
+RUN source /envvars.sh
+
+CMD DJANGO_SETTINGS_MODULE=sensors.prod_settings gunicorn sensors.wsgi:application
+
+### Used previously for debug/dev builds
+###CMD python manage.py runserver
