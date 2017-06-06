@@ -59,6 +59,17 @@
             <button id="loginButton" class="button" data-hint="Click to log in.">Log in</button>
         </div>
 
+        <!--*****************************************
+                Add monitor window
+            **************************************-->
+
+        <div id="monitorMenu" class="template">
+            <input id="monitorName" type="text"  placeholder="Name" data-required="true" data-hint="Insert a name of the Monitor that will be later displayed on the dashboard">
+            <input id="monitorUrl" type="text"  placeholder="Url" data-required="true" data-hint="Insert REST API url">
+
+            <button id="addMonitorButton" class="button" data-hint="Click to add monitor">Add</button>
+        </div>
+
 
         <!--*****************************************
                 Ask yes/no window 
@@ -106,6 +117,13 @@
                         <i class="fa fa-user"></i>
                         <span id="logOut" class="template"> Log out </span>
                     </div>
+
+                    <div id="addMonitor" class="nav navbar-nav navbar-right dropdown" data-hint="Click to add monitor">
+                        <i class="fa fa-plus"></i>
+                        <span id="what" class="template"> Log out </span>
+                    </div>
+
+
 
                     <ul class="nav navbar-nav navbar-right navMenu" >
                         <li><a id="nav0" class="navLink" data-index="0" data-hint="Go to resource view.">RESOURCES</a></li>

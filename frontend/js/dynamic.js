@@ -8,6 +8,7 @@
     // Show login window
     function loginShow()
     {
+        monitorHide();
         var loginForm = $("#loginMenu");
 
         if (findEnv() != "xs")
@@ -41,6 +42,39 @@
             loginShow();
     }
 
+    // Handle click on add monitor icon
+    function addMonitorShowClick(event)
+    {
+        event.stopPropagation();
+
+        loginHide();
+
+
+        var monitorForm = $("#monitorMenu");
+
+        if (findEnv() != "xs")
+        {
+            hideDim();
+            monitorForm.removeClass("monitorMenuFull");
+            monitorForm.css("left", ($("#addMonitor").offset().left - monitorForm.width()) + "px");
+            monitorForm.css("top", ($("#navbar").offset().top + $("#navbar").height() - 1) + "px");
+        }
+        else
+        {
+            showDim();
+            monitorForm.addClass("monitorMenuFull");
+        }
+
+
+        $("#monitorUrl").removeClass("inputInvalid");
+        $("#monitorName").removeClass("inputInvalid");
+
+        monitorForm.css("display", "block");
+        $("#monitorUrl").focus();
+    }
+
+
+
     // Adjust position of login window on resize
     function loginOnResize()
     {
@@ -62,6 +96,16 @@
             hideDim();
         }
     }
+
+    // Hide monitor window
+    function monitorHide()
+    {
+        if ($("#monitorMenu").css("display") != "none")
+        {
+            $("#monitorMenu").css("display", "none");
+            hideDim();
+        }
+    }
     
     // Invoke this function after receiving a confirmation that user has logged in
     function setLoggedIn()
@@ -79,6 +123,20 @@
         $("#userLogin").data("hint", "Click to log in.");
         $("#logOut").addClass("template");
     }
+
+    function addMonitorClick() {
+
+        var url = $("#monitorUrl").val();
+        var name = $("#monitorName").val();
+
+        if ( url == "" || name == "")
+        {
+            statusError("Fill both name and url fields.")
+            return;
+        }
+        makeAjaxCall(url + "/sensors/", name, "id" + name);
+    }
+
 
     // Function sends request to log in
     function login()

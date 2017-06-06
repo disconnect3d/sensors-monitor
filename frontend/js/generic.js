@@ -52,7 +52,10 @@ function makeAjaxCall(hostname, monitorName, monitorId) {
                 type: "GET",
                 dataType: "json",
             }).done(function (data) {
-                addSensors(monitorId, monitorName, obj.id, obj.kind.kind_name, data[data.length - 1].value);
+                if (data.length >0)
+                    addSensors(monitorId, monitorName, obj.id, obj.kind.kind_name, data[data.length - 1].value);
+                else
+                    addSensors(monitorId, monitorName, obj.id, obj.kind.kind_name, "No records");
             });
 
         });
@@ -105,6 +108,12 @@ function setupEvents() {
     $("#userLogin").click(loginShowClick);
     $("#loginMenu").click(loginHideStop);
     $("#loginButton").click(login);
+
+        // Login:
+    $("#addMonitor").click(addMonitorShowClick);
+    $("#monitorMenu").click(loginHideStop);
+    $("#addMonitorButton").off('click').on('click',addMonitorClick);
+
 
     // Ask yes/no
     $("#askWrapper").click(askHide);
@@ -256,6 +265,7 @@ $(window).resize(function () {
 // Used to hide elements
 $(document).click(function () {
     loginHide();
+    monitorHide();
 });
 
 // Used as a way to answer to yes/no window
