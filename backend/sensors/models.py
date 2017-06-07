@@ -55,7 +55,7 @@ class MeasurementValue(models.Model):
     sensor = models.ForeignKey(Sensor)
     value = models.FloatField()
     measurement_time = models.DateTimeField()
-    upload_time = models.DateTimeField()
+    upload_time = models.DateTimeField(auto_now_add=True)
     complex_id = models.ForeignKey(ComplexMeasurement, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):

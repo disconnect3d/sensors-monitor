@@ -10,6 +10,7 @@ from rest_framework import generics
 from .models import SensorKind, Host, Sensor, ComplexMeasurement, MeasurementValue, User
 from .serializers import UserSerializer, SensorKindSerializer, HostSerializer, SensorSerializer, \
     ComplexMeasurementSerializer, MeasurementValueSerializer, MeasurementsListSimplifiedSerializer
+from datetime import date
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -71,7 +72,8 @@ class SensorKindList(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upda
         return self.update(request, *args, **kwargs)
 
 
-class SensorKindDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+class SensorKindDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin,
+                       generics.GenericAPIView):
     """
     Retrieve, update or delete a sensor kind.
     """
@@ -92,6 +94,7 @@ class HostSensorsList(APIView):
     """
     List sensors for given host, create or update a sensor.
     """
+
     def get(self, request, pk, format=None):
         try:
             host = Host.objects.get(pk=pk)
@@ -139,6 +142,7 @@ class SensorMeasurementsList(APIView):
     """
     List measurements for given sensor or create one.
     """
+
     def get(self, request, pk, format=None):
         try:
             sensor = Sensor.objects.get(pk=pk)
@@ -155,6 +159,82 @@ class SensorMeasurementsList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SensorComplexMeasurementsList(APIView):
+    """
+    List complex measurements definitions for given sensor or create one.
+    Does not contain mesaurement data
+    """
+
+    def get(self, request, pk, format=None):
+        try:
+            sensor = Sensor.objects.get(pk=pk)
+        except Sensor.DoesNotExist:
+            raise Http404
+
+        measurements = sensor.complexmeasurement_set.all()
+        serializer = ComplexMeasurementSerializer(measurements, many=True, context={'request': request})
+        return Response(serializer.data)
+
+    def post(self, request, pk, format=None):
+        try:
+            sensor = Sensor.objects.get(pk=pk)
+        except Sensor.DoesNotExist:
+            raise Http404
+        serializer = ComplexMeasurementSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.validated_data["sensor_id"] = sensor.id
+            serializer.validated_data["owner_id"] = request.user.id
+
+            measurement = serializer.save()
+
+            self._calculate_values_for_complex_measurement(measurement)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        try:
+            sensor = Sensor.objects.get(pk=pk)
+            measurement = ComplexMeasurement.objects.get(id=request.data["id"])
+            measurement.delete()
+
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        except Sensor.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, format=None):
+        try:
+            sensor = Sensor.objects.get(pk=pk)
+            measurement = ComplexMeasurement.objects.get(id=request.data["id"])
+        except Sensor.DoesNotExist:
+            raise Http404
+        except ComplexMeasurement.DoesNotExist:
+            raise Http404
+
+        serializer = ComplexMeasurementSerializer(data=request.data, instance=measurement)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            # delete all old values
+            MeasurementValue.objects.filter(complex_id=measurement).delete()
+
+            # calculate new ones
+            self._calculate_values_for_complex_measurement(measurement)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def _calculate_values_for_complex_measurement(self, complex_measurement):
+        pass
 
 
 class SensorMeasurementsDetail(mixins.DestroyModelMixin, generics.GenericAPIView):

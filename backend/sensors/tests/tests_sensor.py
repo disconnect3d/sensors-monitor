@@ -50,8 +50,8 @@ class SensorTests(APITestCase):
             kind1 = SensorKind.objects.get(kind_name="kind1")
             for i in range(NUMBER_OF_SENSORS):
                 Sensor.objects.create(host=host1,
-                                      kind=kind1,
-                                      registered_at=now())
+                                      kind=kind1)
+
             url = reverse("sensor-list")
 
             response = self.client.get(url)
