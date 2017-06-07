@@ -1,5 +1,6 @@
 from random import random, randint
 
+from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -7,9 +8,15 @@ from rest_framework.test import APITestCase
 from sensors.models import Host
 
 NUMBER_OF_HOSTS = 10
+USER_CREDENTIALS = {'username': "user", "password": "password", "email": "a@b.com"}
 
 
 class HostTests(APITestCase):
+    def setUp(self):
+        User.objects.create_user(**USER_CREDENTIALS)
+
+        self.client.login(**USER_CREDENTIALS)
+
     def test_add_host(self):
         """
         Ensure we can create a host object.

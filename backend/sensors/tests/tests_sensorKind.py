@@ -1,5 +1,6 @@
 from random import randint
 
+from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -7,9 +8,14 @@ from rest_framework.test import APITestCase
 from sensors.models import SensorKind
 
 NUMBER_OF_SENSOR_KINDS = 10
+USER_CREDENTIALS = {'username': "user", "password": "password", "email": "a@b.com"}
 
 
 class SensorsKindTests(APITestCase):
+    def setUp(self):
+        User.objects.create_user(**USER_CREDENTIALS)
+        self.client.login(**USER_CREDENTIALS)
+
     def test_add_sensorKind(self):
         """
         Ensure we can create a sensorKind object.
