@@ -11,6 +11,8 @@ services:
       - ./frontend:/frontend
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/proxy_params:/etc/nginx/proxy_params
+      - backend1-staticfiles:/frontend/static1
+      - backend2-staticfiles:/frontend/static2
     depends_on:
       - backend1
       - backend2
@@ -23,8 +25,9 @@ services:
     command: /launch_backend.sh
     volumes:
       - ./db/backend1:/db
-      - ./envs/backend1.sh:/envs.sh
+      - ./backend-settings/backend1_settings.py:/code/sensors/deploy_settings.py
       - ./launch_backend.sh:/launch_backend.sh
+      - backend1-staticfiles:/static
     expose:
       - "8000"
 
@@ -39,8 +42,12 @@ services:
     command: /launch_backend.sh
     volumes:
       - ./db/backend2:/db
-      - ./envs/backend2.sh:/envs.sh
+      - ./backend-settings/backend2_settings.py:/code/sensors/deploy_settings.py
       - ./launch_backend.sh:/launch_backend.sh
+      - backend2-staticfiles:/static
     expose:
       - "8000"
 
+volumes:
+  backend1-staticfiles:
+  backend2-staticfiles:
