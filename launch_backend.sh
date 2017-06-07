@@ -1,8 +1,9 @@
 #!/bin/bash
 
 set -e
+export DJANGO_SETTINGS_MODULE=sensors.deploy_settings
 
-. /envs.sh
+./manage.py collectstatic --noinput
 
 call_loaddata=false
 
@@ -17,7 +18,5 @@ if [ "$call_loaddata" = true ]; then
 fi
 
 echo "[*] Running runserver"
-./manage.py runserver 0.0.0.0:8000
-
-# ON PRODUCTION LAUNCH AS:
-# DJANGO_SETTINGS_MODULE=sensors.prod_settings gunicorn --workers 2 --bind 0.0.0.0:8000 --access-logfile - sensors.wsgi:application
+gunicorn --workers 2 --bind 0.0.0.0:8000 --access-logfile - sensors.wsgi:application
+#./manage.py runserver 0.0.0.0:8000

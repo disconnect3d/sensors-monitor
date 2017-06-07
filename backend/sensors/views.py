@@ -2,23 +2,13 @@ from django.http import Http404
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import status
-from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
 
-from .models import SensorKind, Host, Sensor, ComplexMeasurement, MeasurementValue, User
-from .serializers import UserSerializer, SensorKindSerializer, HostSerializer, SensorSerializer, \
+from .models import SensorKind, Host, Sensor, ComplexMeasurement, MeasurementValue
+from .serializers import SensorKindSerializer, HostSerializer, SensorSerializer, \
     ComplexMeasurementSerializer, MeasurementValueSerializer, MeasurementsListSimplifiedSerializer
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = (AllowAny,)
 
 
 class HostList(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
