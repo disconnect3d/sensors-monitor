@@ -47,7 +47,7 @@ function makeAjaxCall(login, pass, hostname, monitorName, monitorId) {
             var key = obj.kind.kind_name;
 
             $.ajax({
-                url: hostname + obj.id + "/measurements",
+                url: hostname + obj.id + "/measurements/",
                 type: "GET",
                 dataType: "json",
             }).done(function (data) {
