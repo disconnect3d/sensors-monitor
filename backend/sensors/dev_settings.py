@@ -15,9 +15,10 @@ CORS_ORIGIN_WHITELIST = ('*',)
 CORS_ORIGIN_REGEX_WHITELIST = ('*', '.*')
 
 
+default_db_path = os.path.join(BASE_DIR, 'db.sqlite3')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.environ.get('DJANGO_APP_DB_PATH', default_db_path),
     }
 }
