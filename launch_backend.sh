@@ -21,7 +21,7 @@ if [ "$call_loaddata" = true ]; then
 fi
 
 echo "[*] Running receiver in background"
-stdbuf -oL -eL nohup python -u manage.py measurements_receiver --host 0.0.0.0 --port 90 &>/measurements.log &
+stdbuf -oL -eL nohup python -u manage.py measurements_receiver --host 0.0.0.0 --port 9000 &>/measurements.log &
 
 echo "[*] Running runserver"
 gunicorn --workers 2 --bind 0.0.0.0:8000 --access-logfile - sensors.wsgi:application

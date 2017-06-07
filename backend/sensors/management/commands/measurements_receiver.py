@@ -43,6 +43,7 @@ class ThreadedMeasurementsPostHandler(socketserver.BaseRequestHandler):
         return bytes(json.dumps(dict_data), 'utf8')
 
     def handle(self):
+        self.stdout.write('Client connected!')
         data = self.get_json()
 
         self.stdout.write("Got data={}".format(data))
