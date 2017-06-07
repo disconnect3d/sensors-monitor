@@ -22,6 +22,8 @@ services:
         context: ./backend
         dockerfile: dockerfile.backend
     container_name: sensors-backend1
+    ports:
+      - "31337:9000"
     command: /launch_backend.sh
     volumes:
       - ./db/backend1:/db
@@ -39,6 +41,8 @@ services:
         context: ./backend
         dockerfile: dockerfile.backend
     container_name: sensors-backend2
+    ports:
+      - "31338:9000"
     command: /launch_backend.sh
     volumes:
       - ./db/backend2:/db
