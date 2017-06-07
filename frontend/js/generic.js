@@ -48,10 +48,6 @@ function makeAjaxCall(login, pass, hostname, monitorName, monitorId) {
 
             $.ajax({
                 url: hostname + obj.id + "/measurements",
-                data: {
-                    id: 123
-                },
-                crossDomain: true,
                 type: "GET",
                 dataType: "json",
             }).done(function (data) {

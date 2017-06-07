@@ -40,5 +40,5 @@
     function compAddClick()
     {
         alert(compWindowSec);
-        alert(compInterSec)
+        alert(compInterSec);
     }

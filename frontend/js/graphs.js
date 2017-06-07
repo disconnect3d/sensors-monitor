@@ -1,4 +1,4 @@
-var hostname = "http://disconnect3d.pl:1337/sensors/";
+var hostname = "http://disconnect3d.pl:1337/api1/sensors/";
 
 /*********************************
     Items
