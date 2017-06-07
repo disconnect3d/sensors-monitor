@@ -57,12 +57,11 @@ class SensorTests(APITestCase):
         """
         Ensure we can get a sensor object.
         """
-        registered_at = now()
+
         host1 = Host.objects.get(name="host1")
         kind1 = SensorKind.objects.get(kind_name="kind1")
         Sensor.objects.create(host=host1,
-                              kind=kind1,
-                              registered_at=registered_at)
+                              kind=kind1)
         sensor_id = Sensor.objects.get().id
         url = reverse("sensor-detail", kwargs={'pk': sensor_id})
 
@@ -70,7 +69,6 @@ class SensorTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["id"], 1)
-        self.assertEqual(response.data["registered_at"], registered_at.strftime('%Y-%m-%dT%H:%M:%S.%fZ'))
         self.assertEqual(response.data["host"], OrderedDict([('id', host1.id), ('name', host1.name)]))
         self.assertEqual(response.data["kind"], OrderedDict([('id', kind1.id), ('kind_name', kind1.kind_name)]))
 

@@ -38,6 +38,10 @@ urlpatterns = [
     url(r'^sensors/(?P<pk>[0-9]+)/measurements/$', views.SensorMeasurementsList.as_view(), name='sensor-measurement-list'),
     url(r'^sensors/(?P<pk2>[0-9]+)/measurements/(?P<pk>[0-9]+)/$', views.SensorMeasurementsDetail.as_view(), name='sensor-measurement-detail'),
 
+    url(r'^sensors/(?P<pk>[0-9]+)/complex-measurements/$', views.SensorComplexMeasurementsList.as_view(),
+        name='sensor-complex-list'),
+
+
     url(r'^sensor_kinds/$', views.SensorKindList.as_view(), name='sensorkind-list'),
     url(r'^sensor_kinds/(?P<pk>[0-9]+)/$', views.SensorKindDetail.as_view(), name='sensorkind-detail'),
 ]
