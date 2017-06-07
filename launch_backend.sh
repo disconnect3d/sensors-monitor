@@ -14,7 +14,10 @@ fi
 ./manage.py migrate
 
 if [ "$call_loaddata" = true ]; then
-    ./manage.py loaddata 002fixture.json
+    for fixture in $(ls ./fixtures/); do
+        echo "[*] Loading fixture: ./fixtures/$fixture"
+        ./manage.py loaddata ./fixtures/${fixture}
+    done
 fi
 
 echo "[*] Running runserver"

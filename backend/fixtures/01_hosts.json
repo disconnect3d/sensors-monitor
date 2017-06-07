@@ -1,0 +1,1 @@
+[{"model": "sensors.host", "pk": 1, "fields": {"name": "host1", "host_key": "host1"}}, {"model": "sensors.host", "pk": 2, "fields": {"name": "host2", "host_key": "host2"}}, {"model": "sensors.host", "pk": 3, "fields": {"name": "host3", "host_key": "host3"}}, {"model": "sensors.host", "pk": 4, "fields": {"name": "host4", "host_key": "host4"}}]
