@@ -10,15 +10,3 @@ WORKDIR /code
 ADD ./requirements.txt /code/
 RUN pip install -r requirements.txt
 ADD ./ /code/
-
-
-RUN python manage.py migrate
-RUN python manage.py loaddata 002fixture.json
-
-# NOTE: The `envvars.sh` script must be mounted externally
-# it must export an env var "DJANGO_APP_SECRET_KEY" with a random value
-# this CANNOT be in source control
-CMD . /envvars.sh && DJANGO_SETTINGS_MODULE=sensors.prod_settings gunicorn --workers 2 --bind 0.0.0.0:8000 --access-logfile - sensors.wsgi:application
-
-### Used previously for debug/dev builds
-###CMD python manage.py runserver

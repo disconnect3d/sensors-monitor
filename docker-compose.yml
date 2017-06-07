@@ -19,13 +19,13 @@ services:
         context: ./backend
         dockerfile: dockerfile.backend
     container_name: sensors-backend1
-    command: ./manage.py runserver 0.0.0.0:8000
+    command: /launch_backend.sh
     volumes:
       - ./db/backend1:/db
+      - ./envs/backend1.sh:/envs.sh
+      - ./launch_backend.sh:/launch_backend.sh
     expose:
       - "8000"
-    environment:
-      - DJANGO_APP_DB_PATH=/db/backend1.sqlite3
 
   # SADLY this is copy psated as docker-compose doesn't let us do multiple containers
   # ...there is an option, but it works only with docker swarm (see `replicas` in docs)
@@ -35,11 +35,11 @@ services:
         context: ./backend
         dockerfile: dockerfile.backend
     container_name: sensors-backend2
-    command: ./manage.py runserver 0.0.0.0:8000
+    command: /launch_backend.sh
     volumes:
       - ./db/backend2:/db
+      - ./envs/backend2.sh:/envs.sh
+      - ./launch_backend.sh:/launch_backend.sh
     expose:
       - "8000"
-    environment:
-      - DJANGO_APP_DB_PATH=/db/backend2.sqlite3
 
