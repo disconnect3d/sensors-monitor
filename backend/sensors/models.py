@@ -11,9 +11,10 @@ class SensorKind(models.Model):
 
 class Host(models.Model):
     name = models.CharField(max_length=64)
+    host_key = models.CharField(max_length=64)
 
     def __str__(self):
-        return self.name
+        return '{} (KEY: {})'.format(self.name, self.host_key)
 
 
 class Sensor(models.Model):

@@ -1,27 +1,37 @@
-from optparse import OptionParser
+#!/usr/bin/env python
+from argparse import ArgumentParser
 import arrow
-import errno
 
 import measures
 import serializer
 import networking
 
 # Parse arguments
-parser = OptionParser()
-parser.add_option("-n", "--name", dest="name", default="NeckBook-Pro",
-                  help="name this pc", metavar="NAME")
-parser.add_option("-s", "--server", dest="server", default="disconnect3d.pl",
-                  help="server ip", metavar="SERVER")
-parser.add_option("-p", "--port", dest="port", default=31337,
-                  help="tcp port of server", metavar="PORT")
-(options, args) = parser.parse_args()
+parser = ArgumentParser()
+parser.add_argument('name', help='name this pc', metavar='NAME')
+parser.add_argument('host', help='server ip', metavar='SERVER')
+parser.add_argument('port', help='tcp port of server', metavar='PORT')
+parser.add_argument('host_key', help='host key', metavar='HOSTKEY')
+args = parser.parse_args()
 
 
 json_base = {
-    'host': options.name,
+    'host': args.name,
+    'host_key': args.host_key
 }
 
-networking.open_connection(options.server, int(options.port))
+
+def send_data(packet):
+    networking.open_connection(args.host, int(args.port))
+    networking.send(packet)
+    response = networking.recv()
+    networking.close_connection()
+
+    if response['status'] != 'success':
+        raise Exception(response['message'])
+
+    return True
+
 
 while 1:
     try:
@@ -29,26 +39,13 @@ while 1:
         measurement_date = arrow.utcnow().timestamp
 
         packet = serializer.packets(json_base, measurement_date, retrieved_measures)
-
         print(packet)
-        networking.send(packet)
+
+        while not send_data(packet):
+            pass
+
     except KeyboardInterrupt:
         break
-    except networking.client_socket.error as e:
-        if isinstance(e.args, tuple):
-            print
-            "errno is %d" % e[0]
-            if e[0] == errno.EPIPE:
-                # remote peer disconnected
-                print
-                "Detected remote disconnect"
-                networking.open_connection(options.server, options.port)
-            else:
-                # determine and handle different error
-                pass
-        else:
-            print
-            "socket error ", e
 
 
 print("closing connection")

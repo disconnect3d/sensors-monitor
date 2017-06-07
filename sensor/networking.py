@@ -1,3 +1,4 @@
+import json
 import socket
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,7 +18,13 @@ def send(string):
     client_socket.sendall(data)
 
 
+def recv():
+    global client_socket
+    data = client_socket.recv(1024)
+    print('Received: ', data)
+    return json.loads(data.decode('utf8'))
+
+
 def close_connection():
     global client_socket
     client_socket.shutdown(1)
-
