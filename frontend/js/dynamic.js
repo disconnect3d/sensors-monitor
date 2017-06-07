@@ -132,10 +132,10 @@
         var url = $("#monitorUrl").val();
         var name = $("#monitorName").val();
 
-        var login = $("#monitorLogin").val();
-        var pass = $("#monitorPass").val();
+        var login = '';
+        var pass = '';
 
-        if ( url == "" || name == "" || login == "" || pass == "" )
+        if ( url == "" || name == "" )
         {
             statusError("All field must be filled")
             return;

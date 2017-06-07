@@ -29,14 +29,20 @@ function hideDim() {
 }
 
 function makeAjaxCall(login, pass, hostname, monitorName, monitorId) {
+    var headers = null;
+
+    if ( login && password) {
+        headers = {
+            'Authorization': 'Basic ' + btoa(login + ':' + pass)
+        };
+    }
+
     $.ajax({
         url: hostname,
         xhrFields: {
             withCredentials: true
         },
-        headers: {
-            'Authorization': 'Basic ' + btoa(login + ':' + pass)
-        },
+        headers: headers,
         crossDomain: true,
         type: "GET",
         dataType: "json",
