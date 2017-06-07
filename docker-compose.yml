@@ -1,0 +1,41 @@
+version: '3'  
+
+services:  
+  # also holds frontend!
+  nginx:
+    image: nginx:latest
+    container_name: sensors-nginx
+    ports:
+      - "1337:8000"
+    volumes:
+      - ./frontend:/frontend
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - backend1
+      - backend2
+
+  backend1:
+    build:
+        context: ./backend
+        dockerfile: dockerfile.backend
+    container_name: sensors-backend1
+    command: ./manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./src:/src
+    expose:
+      - "8000"
+
+  # SADLY this is copy psated as docker-compose doesn't let us do multiple containers
+  # ...there is an option, but it works only with docker swarm (see `replicas` in docs)
+  # ( https://docs.docker.com/compose/compose-file/#replicas )
+  backend2:
+    build:
+        context: ./backend
+        dockerfile: dockerfile.backend
+    container_name: sensors-backend2
+    command: ./manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./src:/src
+    expose:
+      - "8000"
+

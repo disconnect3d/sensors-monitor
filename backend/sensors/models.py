@@ -19,7 +19,7 @@ class Host(models.Model):
 class Sensor(models.Model):
     host = models.ForeignKey(Host, on_delete=models.CASCADE)
     kind = models.ForeignKey(SensorKind)
-    registered_at = models.DateTimeField()
+    registered_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return "{}@{} [{}]".format(self.kind.kind_name, self.host.name, self.registered_at)
@@ -55,7 +55,7 @@ class MeasurementValue(models.Model):
     sensor = models.ForeignKey(Sensor)
     value = models.FloatField()
     measurement_time = models.DateTimeField()
-    upload_time = models.DateTimeField()
+    upload_time = models.DateTimeField(auto_now_add=True)
     complex_id = models.ForeignKey(ComplexMeasurement, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
