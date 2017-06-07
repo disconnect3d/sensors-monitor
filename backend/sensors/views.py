@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 
 from .models import SensorKind, Host, Sensor, ComplexMeasurement, MeasurementValue, User
 from .serializers import UserSerializer, SensorKindSerializer, HostSerializer, SensorSerializer, \
@@ -17,6 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+    permission_classes = (AllowAny,)
 
 
 class HostList(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
@@ -25,6 +27,7 @@ class HostList(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateMode
     """
     queryset = Host.objects.all()
     serializer_class = HostSerializer
+    permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -42,6 +45,7 @@ class HostDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Dest
     """
     queryset = Host.objects.all()
     serializer_class = HostSerializer
+    permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -59,6 +63,7 @@ class SensorKindList(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Upda
     """
     queryset = SensorKind.objects.all()
     serializer_class = SensorKindSerializer
+    permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -77,6 +82,7 @@ class SensorKindDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixin
     """
     queryset = SensorKind.objects.all()
     serializer_class = SensorKindSerializer
+    permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -92,6 +98,7 @@ class HostSensorsList(APIView):
     """
     List sensors for given host, create or update a sensor.
     """
+    permission_classes = (AllowAny,)
 
     def get(self, request, pk, format=None):
         try:
@@ -117,6 +124,7 @@ class SensorList(mixins.ListModelMixin, generics.GenericAPIView):
     """
     queryset = Sensor.objects.all()
     serializer_class = SensorSerializer
+    permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -128,6 +136,7 @@ class SensorDetail(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, generics
     """
     queryset = Sensor.objects.all()
     serializer_class = SensorSerializer
+    permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -140,6 +149,7 @@ class SensorMeasurementsList(APIView):
     """
     List measurements for given sensor or create one.
     """
+    permission_classes = (AllowAny,)
 
     def get(self, request, pk, format=None):
         try:
