@@ -128,3 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+if os.environ.get('DJANGO_USE_X_FORWARDED_HOST', False):
+    print('[*] Django settings: using X Forwarded Host')
+    USE_X_FORWARDED_HOST = True

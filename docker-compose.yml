@@ -10,6 +10,7 @@ services:
     volumes:
       - ./frontend:/frontend
       - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/proxy_params:/etc/nginx/proxy_params
     depends_on:
       - backend1
       - backend2
