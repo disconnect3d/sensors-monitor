@@ -208,7 +208,7 @@ class SensorComplexMeasurementsList(APIView):
     def delete(self, request, pk, format=None):
         try:
             sensor = Sensor.objects.get(pk=pk)
-            measurement = ComplexMeasurement.objects.get(id=request.data["id"])
+            measurement = ComplexMeasurement.objects.get(id=request.data["id"], owner_id=request.user.id)
             measurement.delete()
 
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -219,7 +219,7 @@ class SensorComplexMeasurementsList(APIView):
     def put(self, request, pk, format=None):
         try:
             sensor = Sensor.objects.get(pk=pk)
-            measurement = ComplexMeasurement.objects.get(id=request.data["id"])
+            measurement = ComplexMeasurement.objects.get(id=request.data["id"], owner_id=request.user.id)
         except Sensor.DoesNotExist:
             raise Http404
         except ComplexMeasurement.DoesNotExist:
