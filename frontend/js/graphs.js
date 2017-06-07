@@ -9,7 +9,7 @@ var hostname = "http://disconnect3d.pl:1337/api1/sensors/";
         $('#grapPanel').find('.grapItem').removeClass("grapItemOn");
         $(e.target).closest(".grapItem").toggleClass("grapItemOn", 300);
             $.ajax({
-            url: hostname + $(e.target).closest('.grapItem').attr('data-id') + "/measurements",
+            url: hostname + $(e.target).closest('.grapItem').attr('data-id') + "/measurements/",
             crossDomain: true,
             type: "GET",
             dataType: "json",
