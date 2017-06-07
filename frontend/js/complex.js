@@ -36,3 +36,9 @@
         $("#measSelectComplex").removeClass("template");
         loadSlide(0);
     }
+
+    function compAddClick()
+    {
+        alert(compWindowSec);
+        alert(compInterSec)
+    }

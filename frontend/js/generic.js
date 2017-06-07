@@ -28,11 +28,14 @@ function hideDim() {
     $("#dim").css("display", "none");
 }
 
-function makeAjaxCall(hostname, monitorName, monitorId) {
+function makeAjaxCall(login, pass, hostname, monitorName, monitorId) {
     $.ajax({
         url: hostname,
-        data: {
-            id: 123
+        xhrFields: {
+            withCredentials: true
+        },
+        headers: {
+            'Authorization': 'Basic ' + btoa(login + ':' + pass)
         },
         crossDomain: true,
         type: "GET",
@@ -41,8 +44,8 @@ function makeAjaxCall(hostname, monitorName, monitorId) {
     .done(function (data) {
         addMonitor(monitorName, monitorId);
         $.each(data, function (i, obj) {
-
             var key = obj.kind.kind_name;
+
             $.ajax({
                 url: hostname + obj.id + "/measurements",
                 data: {
@@ -56,12 +59,16 @@ function makeAjaxCall(hostname, monitorName, monitorId) {
                     addSensors(monitorId, monitorName, obj.id, obj.kind.kind_name, data[data.length - 1].value);
                 else
                     addSensors(monitorId, monitorName, obj.id, obj.kind.kind_name, "No records");
+            }).fail(function (xhr, status, errorThrown) {
+                addSensors(monitorId, monitorName, obj.id, "Test sensor", "default");
             });
+
+
 
         });
     })
     .fail(function (xhr, status, errorThrown) {
-        alert("Sorry, there was a problem!");
+        alert("Wrong url, login or password, try again!");
         console.log("Error: " + errorThrown);
         console.log("Status: " + status);
         console.dir(xhr);
@@ -141,17 +148,25 @@ function setupMeasEvents() {
     });
 
     $("#measItems").on('click', '.measAdd', function (e) {
-        measAdd(e);
-        $('#grapPanel').children('.grapItem').remove();
+        if (compSelectionActive){
+            var res = $(this).attr("data-monitor-name");
+            var sensor = $(this).attr("data-sensor-id");
+            $('#compSelected').text(res + "::" + sensor);
+            loadSlide(1);
+            compSelectionActive = false;
+        } else {
+            measAdd(e);
+            $('#grapPanel').children('.grapItem').remove();
 
-        $('#measItems').find('.measSelected').each(function () {
-            $('#grapPanel').append(
-                '<div class="grapItem" data-id="' + $(this).attr("data-sensor-id") + '" data-hint="Click to show / hide this measurement from graph">' +
-                '<div class="grapItemRes">' + $(this).attr("data-monitor-name") + ' :: </div>' +
-                '<div class="grapItemMeas">' + $(this).find(".measResName").text() + '</div>' +
-                '</div>'
-            );
-        });
+            $('#measItems').find('.measSelected').each(function () {
+                $('#grapPanel').append(
+                    '<div class="grapItem" data-id="' + $(this).attr("data-sensor-id") + '" data-hint="Click to show / hide this measurement from graph">' +
+                    '<div class="grapItemRes">' + $(this).attr("data-monitor-name") + ' :: </div>' +
+                    '<div class="grapItemMeas">' + $(this).find(".measResName").text() + '</div>' +
+                    '</div>'
+                );
+            });
+        }
     });
 
 
@@ -162,6 +177,8 @@ function setupMeasEvents() {
 
 function setupCompEvents() {
     $("#compSelect").click(compSelectClick);
+
+    $("#compAdd").click(compAddClick);
 
     // Init time pickers
     $("#compWindow").timeDurationPicker(
@@ -183,7 +200,7 @@ function setupCompEvents() {
 
 
 function setupGrapEvents() {
-    console.log('asd');
+
     $("#grapPanel").on('click', '.grapItem', grapItemClick);
 
     // Date picker
@@ -244,7 +261,7 @@ $(document).ready(function () {
             afterSlideLoad: onSlideLoad
         });
 
-    makeAjaxCall("http://disconnect3d.pl:1337/sensors/", "Monitor 1", "m1");
+    //makeAjaxCall("http://disconnect3d.pl:1337/sensors/", "Monitor 1", "m1");
 
     // Initial
     loadSlide(0);
@@ -254,7 +271,7 @@ $(document).ready(function () {
     // Initial resize
     windowResize();
 
-
+    $('body').css('overflow', 'auto');
 });
 
 // When resolution/size changes

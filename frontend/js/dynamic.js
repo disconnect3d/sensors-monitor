@@ -5,6 +5,7 @@
     
     var isLogged = false;               // Is user logged in?
 
+
     // Show login window
     function loginShow()
     {
@@ -68,6 +69,8 @@
 
         $("#monitorUrl").removeClass("inputInvalid");
         $("#monitorName").removeClass("inputInvalid");
+        $("#monitorLogin").removeClass("inputInvalid");
+        $("#monitorPass").removeClass("inputInvalid");
 
         monitorForm.css("display", "block");
         $("#monitorUrl").focus();
@@ -129,12 +132,19 @@
         var url = $("#monitorUrl").val();
         var name = $("#monitorName").val();
 
-        if ( url == "" || name == "")
+        var login = $("#monitorLogin").val();
+        var pass = $("#monitorPass").val();
+
+        if ( url == "" || name == "" || login == "" || pass == "" )
         {
-            statusError("Fill both name and url fields.")
+            statusError("All field must be filled")
             return;
         }
-        makeAjaxCall(url + "/sensors/", name, "id" + name);
+
+        var nameWithoutSpace = name.replace(/\s+/g, '_')
+        var monitorId = "id" + nameWithoutSpace;
+
+        makeAjaxCall(login, pass, url + "/sensors/", name, monitorId);
     }
 
 
