@@ -16,8 +16,8 @@ function addMonitor(monitorName, monitorId){
     $("#measItems").append(monitorDiv);
 }
 
-function addSensors(monitorID, monitorName, sensorId, key, value) {
-    var singleSensorDiv = "<div class='measItemRes measAdd' data-sensor-id='"+sensorId+"' data-monitor-name='"+monitorName+"'>" +
+function addSensors(monitorID, monitorName, monitorUrl, sensorId, key, value) {
+    var singleSensorDiv = "<div class='measItemRes measAdd' data-sensor-id='"+sensorId+"' data-monitor-url='"+monitorUrl+"' data-monitor-name='"+monitorName+"'>" +
                     "<i class='fa fa-thermometer-full' data-hint='Select (deselect) this measurement to the graph view.'></i>" +
                     "<div class='measResDet'> <span class='measResName'>" + key + "</span> <span class='measResValue'>" + value +"</span></div></div>";
     $("#" + monitorID).append(singleSensorDiv);

@@ -58,9 +58,9 @@ function makeAjaxCall(login, pass, hostname, monitorName, monitorId) {
                 dataType: "json",
             }).done(function (data) {
                 if (data.length >0)
-                    addSensors(monitorId, monitorName, obj.id, obj.kind.kind_name, data[data.length - 1].value);
+                    addSensors(monitorId, monitorName, $('#monitorUrl').val(), obj.id, obj.kind.kind_name, data[data.length - 1].value);
                 else
-                    addSensors(monitorId, monitorName, obj.id, obj.kind.kind_name, "No records");
+                    addSensors(monitorId, monitorName, $('#monitorUrl').val(), obj.id, obj.kind.kind_name, "No records");
             }).fail(function (xhr, status, errorThrown) {
                 addSensors(monitorId, monitorName, obj.id, "Test sensor", "default");
             });
@@ -153,7 +153,8 @@ function setupMeasEvents() {
         if (compSelectionActive){
             var res = $(this).attr("data-monitor-name");
             var sensor = $(this).attr("data-sensor-id");
-            $('#compSelected').text(res + "::" + sensor);
+            var url = $(this).attr("data-monitor-url");
+            $('#compSelected').text(res + "::" + sensor).attr('data-sensor-id', sensor).attr('data-sensor-url', url);
             loadSlide(1);
             compSelectionActive = false;
         } else {
@@ -182,20 +183,10 @@ function setupCompEvents() {
 
     $("#compAdd").click(compAddClick);
 
-    // Init time pickers
-    $("#compWindow").timeDurationPicker(
-        {
-            onSelect: compWindowSecSelect,
-            seconds: true,
-            years: false
-        });
 
-    $("#compInter").timeDurationPicker(
-        {
-            onSelect: compInterSecSelect,
-            seconds: true,
-            years: false
-        });
+    $('#complexFrom').datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+
+    $('#complexTo').datetimepicker({format: 'yyyy-mm-dd hh:ii'});
 
     setupEvents();
 }
