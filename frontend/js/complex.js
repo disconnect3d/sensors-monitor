@@ -67,6 +67,7 @@
                 name: $('#compName').val(),
                 begin: $('#complexFrom').val(),
                 end: $('#complexTo').val(),
+                time_window: $('#compFrame').val(),
                 frequency: $('#compInter').val()
             }
         })
