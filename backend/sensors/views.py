@@ -146,7 +146,18 @@ class SensorMeasurementsList(APIView):
             sensor = Sensor.objects.get(pk=pk)
         except Sensor.DoesNotExist:
             raise Http404
-        measurements = sensor.measurementvalue_set.all()
+
+        from_datetime = self.request.query_params.get('from_datetime', None)
+        to_datetime = self.request.query_params.get('to_datetime', None)
+
+        measurements = sensor.measurementvalue_set
+
+        if from_datetime:
+            measurements = measurements.filter(measurement_time__gt=from_datetime)
+
+        if to_datetime:
+            measurements = measurements.filter(measurement_time__lt=to_datetime)
+
         serializer = MeasurementsListSimplifiedSerializer(measurements, many=True, context={'request': request})
         return Response(serializer.data)
 

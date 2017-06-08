@@ -14,8 +14,14 @@ fi
 ./manage.py migrate
 
 if [ "$call_loaddata" = true ]; then
-    ./manage.py loaddata 002fixture.json
+    for fixture in $(ls ./fixtures/); do
+        echo "[*] Loading fixture: ./fixtures/$fixture"
+        ./manage.py loaddata ./fixtures/${fixture}
+    done
 fi
+
+echo "[*] Running receiver in background"
+stdbuf -oL -eL nohup python -u manage.py measurements_receiver --host 0.0.0.0 --port 9000 &>/measurements.log &
 
 echo "[*] Running runserver"
 gunicorn --workers 2 --bind 0.0.0.0:8000 --access-logfile - sensors.wsgi:application
