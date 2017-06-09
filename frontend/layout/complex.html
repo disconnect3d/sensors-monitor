@@ -20,16 +20,30 @@
     </div>
 
     <div class="compData" data-hint="Select the time window in which data is aggregated.">
-        <div class="compDataTitle">Aggregation time span</div>
+        <div class="compDataTitle">Aggregation time start</div>
         <div class="compDataValue">
-            <input id="compWindow" placeholder="Select" type="text" readonly="readonly" />
+            <input id="complexFrom" placeholder="Select" type="text"/>
+        </div>
+    </div>
+
+    <div class="compData" data-hint="Select the time window in which data is aggregated.">
+        <div class="compDataTitle">Aggregation time end</div>
+        <div class="compDataValue">
+            <input id="complexTo" placeholder="Select" type="text" />
         </div>
     </div>
 
     <div class="compData" data-hint="Select the refresh frequency.">
-        <div class="compDataTitle">Interval</div>
+        <div class="compDataTitle">Time frame (in seconds)</div>
         <div class="compDataValue">
-            <input id="compInter" placeholder="Select" type="text" readonly="readonly" />
+            <input id="compFrame" placeholder="Enter" type="text" />
+        </div>
+    </div>
+
+    <div class="compData" data-hint="Select the refresh frequency.">
+        <div class="compDataTitle">Frequency</div>
+        <div class="compDataValue">
+            <input id="compInter" placeholder="Enter" type="text" />
         </div>
     </div>
 
@@ -41,7 +55,7 @@
     </div>
 
 </div>
-
+<!--
 <div id="compList" >
     <div id="compListTitle">
         List of complex measurements
@@ -69,13 +83,5 @@
     </div><div class="compData">
         <h1>No data</h1>
     </div>
-
-
-
-
-
-
-
-
-
 </div>
+-->
